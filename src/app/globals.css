@@ -57,6 +57,8 @@ body {
   background: var(--night);
   color: var(--ink);
   font-family: var(--font-sans);
+  /* Cormorant defaults to old-style figures, where 1 reads like a small l */
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -108,8 +110,9 @@ body {
   .display {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     line-height: 0.95;
+    font-variant-numeric: lining-nums;
   }
   .eyebrow {
     font-family: var(--font-sans);
@@ -127,4 +130,21 @@ body {
   .grain::after {
     animation: none;
   }
+}
+
+/* A light stone chapter inside the night palette (used for Kubbe's black glaze). */
+.theme-stone {
+  --ink: #16140f;
+  --ink-soft: #3d3933;
+  --muted: #7b7468;
+  --night: #e8e3da;
+  --night-2: #ded8cd;
+  --night-3: #d4cdc0;
+  --line: rgb(22 20 15 / 0.12);
+  --gold: #8d6b3a;
+  --gold-hi: #6f522a;
+  color: var(--ink);
+}
+.theme-stone .text-gold-foil {
+  background-image: linear-gradient(176deg, #a07a43 0%, #7a5a2c 55%, #b48b52 100%);
 }

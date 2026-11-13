@@ -60,7 +60,7 @@ export function DeviceChapter({ lang, index }: { lang: Locale; index: number }) 
           <p className="eyebrow !text-gold">{device.kind}</p>
           <RiseText as="h2" text={device.name} className="display mt-5 text-[clamp(3rem,5.6vw,5.6rem)] text-ink" />
           <FadeIn>
-            <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">{device.body}</p>
+            <p className="mt-6 text-[15px] leading-[1.75] text-ink-soft">{device.body}</p>
           </FadeIn>
         </div>
         <FadeIn>
@@ -77,8 +77,8 @@ export function DeviceChapter({ lang, index }: { lang: Locale; index: number }) 
         <FadeIn>
           <p className="eyebrow mb-4">{d.specLabels.specs}</p>
           <dl className="grid grid-cols-2 gap-px bg-line">
-            {device.specs.map(([k, v]) => (
-              <div key={k} className="bg-night p-4">
+            {device.specs.map(([k, v], i, all) => (
+              <div key={k} className={cn("bg-night p-4", all.length % 2 === 1 && i === all.length - 1 && "col-span-2")}>
                 <dt className="text-[11px] tracking-[0.2em] text-muted uppercase">{k}</dt>
                 <dd className="display mt-2 text-xl text-ink">{v}</dd>
               </div>

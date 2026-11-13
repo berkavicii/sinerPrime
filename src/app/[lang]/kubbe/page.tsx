@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { kubbe } from "@/content/products";
 import { asLocale } from "@/lib/i18n";
-import { contact, whatsappLink } from "@/lib/contact";
+import { contact } from "@/lib/contact";
 import { common } from "@/content/common";
 import { ZoomHero } from "@/components/kubbe/zoom-hero";
 import { Counter, FadeIn, ParallaxImage, RiseText, ScrollLitText } from "@/components/site/motion";
@@ -43,7 +43,7 @@ export default async function KubbePage({ params }: PageProps<"/[lang]/kubbe">) 
           <p className="eyebrow">{k.craft.eyebrow}</p>
           <RiseText as="h2" text={k.craft.title} className="display mt-5 max-w-[14ch] text-[clamp(2.4rem,4.4vw,4.4rem)] text-ink" />
           <FadeIn>
-            <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ink-soft">{k.craft.body}</p>
+            <p className="mt-8 max-w-md text-[15px] leading-[1.75] text-ink-soft">{k.craft.body}</p>
           </FadeIn>
         </div>
       </section>
@@ -55,7 +55,7 @@ export default async function KubbePage({ params }: PageProps<"/[lang]/kubbe">) 
             <p className="eyebrow">{k.parts.eyebrow}</p>
             <RiseText as="h2" text={k.parts.title} className="display mt-5 text-[clamp(2.4rem,4.6vw,4.6rem)] text-ink" />
             <FadeIn>
-              <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ink-soft">{k.parts.body}</p>
+              <p className="mt-8 max-w-md text-[15px] leading-[1.75] text-ink-soft">{k.parts.body}</p>
             </FadeIn>
           </div>
           <FadeIn className="lg:col-span-7">
@@ -76,7 +76,7 @@ export default async function KubbePage({ params }: PageProps<"/[lang]/kubbe">) 
             {k.ritual.steps.map((step, i) => (
               <FadeIn key={step} delay={i * 0.1} className="flex min-h-48 flex-col sm:min-h-72 justify-between bg-night-2 p-8">
                 <span className="display text-gold-foil text-7xl leading-none">{i + 1}</span>
-                <p className="text-[16px] leading-relaxed text-ink">{step}</p>
+                <p className="text-[16px] leading-[1.75] text-ink">{step}</p>
               </FadeIn>
             ))}
           </ol>
@@ -121,7 +121,7 @@ export default async function KubbePage({ params }: PageProps<"/[lang]/kubbe">) 
               <ButtonLink href={contact.shop} variant="ghost">
                 {k.scents.shop}
               </ButtonLink>
-              <ButtonLink href={whatsappLink(k.cta.message)}>{c.whatsapp}</ButtonLink>
+              <ButtonLink href="#iletisim">{c.contact}</ButtonLink>
             </div>
           </div>
           <div className="mt-16 flex flex-wrap gap-x-8 gap-y-3">

@@ -2,10 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { home } from "@/content/home";
+import { motion, useInView, useScroll, useTransform, type MotionValue } from "motion/react";
 import { common } from "@/content/common";
-import { href, type Locale } from "@/lib/i18n";
+import type { ProductStoryContent } from "@/content/burners";
+import type { Locale } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
+import type { StoryModel } from "@/components/three/story-canvas";
 import { ButtonLink } from "@/components/ui/button";
 
 const StoryCanvas = dynamic(() => import("@/components/three/story-canvas"), { ssr: false });
@@ -32,16 +34,34 @@ function Step({
     <motion.div style={{ opacity, y }} className="absolute inset-x-0 bottom-0 lg:top-1/2 lg:bottom-auto lg:-translate-y-1/2">
       <p className="font-display text-gold-foil text-6xl leading-none sm:text-7xl">{k}</p>
       <h3 className="display mt-4 text-[clamp(1.9rem,3.2vw,3rem)] text-ink">{title}</h3>
-      <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-ink-soft">{body}</p>
+      <p className="mt-4 max-w-sm text-[15px] leading-[1.75] text-ink-soft">{body}</p>
     </motion.div>
   );
 }
 
-export function Story({ lang }: { lang: Locale }) {
-  const s = home[lang].story;
+/**
+ * A 620vh scroll chapter: the product turns, comes apart part by part with
+ * captions, then reassembles for the call to action.
+ */
+export function ProductStory({
+  id,
+  lang,
+  model,
+  content: s,
+  ctaHref,
+  theme = "night",
+}: {
+  id?: string;
+  lang: Locale;
+  model: StoryModel;
+  content: ProductStoryContent;
+  ctaHref: string;
+  theme?: "night" | "stone";
+}) {
   const c = common[lang];
   const track = useRef<HTMLDivElement>(null);
   const labelEls = useRef<(HTMLElement | null)[]>([]);
+  const inView = useInView(track, { margin: "50% 0px 50% 0px" });
   const { scrollYProgress: p } = useScroll({ target: track, offset: ["start start", "end end"] });
 
   const heroOpacity = useTransform(p, [0, 0.07], [1, 0]);
@@ -61,7 +81,7 @@ export function Story({ lang }: { lang: Locale }) {
   ];
 
   return (
-    <section ref={track} className="relative h-[620vh]" aria-label="ONIX">
+    <section id={id} ref={track} className={cn("relative h-[620vh]", theme === "stone" && "theme-stone bg-night")} aria-label={s.name}>
       <div className="sticky top-0 h-dvh overflow-hidden">
         {/* warm halo behind the object */}
         <motion.div
@@ -69,17 +89,12 @@ export function Story({ lang }: { lang: Locale }) {
           className="pointer-events-none absolute top-[27%] left-1/2 lg:top-[38%] h-[70vmin] w-[70vmin] -translate-1/2 rounded-full bg-[radial-gradient(circle,rgba(200,164,106,0.28),rgba(200,164,106,0.06)_45%,transparent_70%)] blur-2xl lg:left-[68%]"
         />
         <div className="absolute inset-0">
-          <StoryCanvas progress={p} labelEls={labelEls} />
+          <StoryCanvas model={model} active={inView} progress={p} labelEls={labelEls} />
         </div>
 
         {/* part labels, positioned every frame by the canvas */}
         <div className="pointer-events-none absolute inset-0 z-10 hidden sm:block" aria-hidden>
-          {([
-            [s.labels.body, "left"],
-            [s.labels.bowl, "right"],
-            [s.labels.light, "right"],
-            [s.labels.bottle, "right"],
-          ] as const).map(([text, side], i) => (
+          {s.labels.map(([text, side, textLang], i) => (
             <div
               key={text}
               ref={(el) => {
@@ -92,7 +107,7 @@ export function Story({ lang }: { lang: Locale }) {
               >
                 <span className="block size-1.5 rounded-full bg-gold-hi shadow-[0_0_12px_2px_rgba(236,215,170,0.6)]" />
                 <span className={`block h-px w-10 sm:w-16 ${side === "left" ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-gold/80 to-gold/0`} />
-                <span className="eyebrow !text-[10px] !text-ink sm:!text-[11px]">{text}</span>
+                <span lang={textLang} className="eyebrow !text-[10px] !text-ink sm:!text-[11px]">{text}</span>
               </div>
             </div>
           ))}
@@ -106,39 +121,47 @@ export function Story({ lang }: { lang: Locale }) {
           <motion.p
             className="eyebrow mb-6"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.4, duration: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 1 }}
           >
             {s.eyebrow}
           </motion.p>
-          <h1 className="display text-[clamp(2.9rem,7.6vw,9.5rem)] text-ink">
+          {/* the heading triggers the reveal: lines pushed out of their masks never count as "in view" themselves */}
+          <motion.h2
+            className="display text-[clamp(2.9rem,7.6vw,9.5rem)] text-ink"
+            initial="hidden"
+            whileInView="shown"
+            viewport={{ once: true }}
+          >
             {s.title.map((line, i) => (
               <span key={i} className="block overflow-hidden pb-[0.08em]">
                 <motion.span
                   className={i === 1 ? "text-gold-foil block italic" : "block"}
-                  initial={{ y: "105%" }}
-                  animate={{ y: "0%" }}
-                  transition={{ duration: 1.4, ease: silk, delay: 2.35 + i * 0.14 }}
+                  variants={{ hidden: { y: "105%" }, shown: { y: "0%" } }}
+                  transition={{ duration: 1.4, ease: silk, delay: 0.2 + i * 0.14 }}
                 >
                   {line}
                 </motion.span>
               </span>
             ))}
-          </h1>
+          </motion.h2>
           <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <motion.p
-              className="max-w-md text-[15px] leading-relaxed text-ink-soft"
+              className="max-w-md text-[15px] leading-[1.75] text-ink-soft"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.9, duration: 1.2, ease: silk }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7, duration: 1.2, ease: silk }}
             >
               {s.lead}
             </motion.p>
             <motion.div
               className="flex items-center gap-4 text-[11px] tracking-[0.3em] text-muted uppercase"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 3.2, duration: 1 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 1 }}
             >
               <span className="relative block h-12 w-px overflow-hidden bg-line">
                 <motion.span
@@ -183,7 +206,7 @@ export function Story({ lang }: { lang: Locale }) {
           className="gutter absolute inset-x-0 bottom-[10vh] lg:top-1/2 lg:bottom-auto lg:w-1/2 lg:-translate-y-1/2"
         >
           <p className="display max-w-[16ch] text-[clamp(2.2rem,4.6vw,4.6rem)] text-ink">{s.outro}</p>
-          <ButtonLink href={href(lang, "onix#studio")} className="mt-10" size="lg">
+          <ButtonLink href={ctaHref} className="mt-10" size="lg">
             {s.outroCta}
           </ButtonLink>
         </motion.div>

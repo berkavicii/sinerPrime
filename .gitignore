@@ -43,3 +43,6 @@ next-env.d.ts
 # local
 /docs/
 tsconfig.tsbuildinfo
+
+# kişisel notlar
+NOTLAR.md

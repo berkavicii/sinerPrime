@@ -28,7 +28,7 @@ export function Audit({ lang }: { lang: Locale }) {
         <div className="lg:col-span-5">
           <p className="eyebrow">{a.eyebrow}</p>
           <RiseText as="h2" text={a.title} className="display mt-5 text-[clamp(2.4rem,5vw,5rem)] text-ink" />
-          <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ink-soft">{a.lead}</p>
+          <p className="mt-8 max-w-md text-[15px] leading-[1.75] text-ink-soft">{a.lead}</p>
           <div className="mt-12 flex gap-1.5" aria-hidden>
             {a.questions.map((_, k) => (
               <span
@@ -77,7 +77,7 @@ export function Audit({ lang }: { lang: Locale }) {
                 <div>
                   <p className="display text-gold-foil text-[clamp(5rem,10vw,8rem)] leading-none">{noes.length}</p>
                   <p className="display mt-4 text-[clamp(1.8rem,3vw,2.8rem)] text-ink">{a.resultTitle(noes.length)}</p>
-                  <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink-soft">{a.resultBody(noes.length)}</p>
+                  <p className="mt-5 max-w-md text-[15px] leading-[1.75] text-ink-soft">{a.resultBody(noes.length)}</p>
                 </div>
                 <div className="mt-10 flex flex-wrap gap-3">
                   <ButtonLink href={whatsappLink(message)} size="lg">

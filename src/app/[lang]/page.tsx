@@ -1,27 +1,24 @@
 import { asLocale } from "@/lib/i18n";
-import { Story } from "@/components/home/story";
-import { Audit } from "@/components/home/audit";
-import {
-  About,
-  Closing,
-  Collection,
-  Marquee,
-  Pillars,
-  References,
-} from "@/components/home/sections";
+import { landing } from "@/content/landing";
+import { ChapterRail, Intro, KubbeFeature, Machines, OnixFeature, Projects, Scent, Who } from "@/components/home/landing";
+import { References } from "@/components/home/sections";
 
+/* Seven stops, readable in about two minutes; the footer is the single place to get in touch. */
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const lang = asLocale((await params).lang);
   return (
     <>
-      <Story lang={lang} />
-      <Marquee lang={lang} />
-      <About lang={lang} />
-      <Pillars lang={lang} />
-      <Collection lang={lang} />
-      <Audit lang={lang} />
-      <References lang={lang} />
-      <Closing lang={lang} />
+      <ChapterRail lang={lang} />
+      <Intro lang={lang} />
+      <Scent lang={lang} />
+      <Who lang={lang} />
+      <Projects lang={lang} />
+      <Machines lang={lang} />
+      <KubbeFeature lang={lang} />
+      <OnixFeature lang={lang} />
+      <div id="referanslar" className="scroll-mt-20 border-t border-line">
+        <References lang={lang} eyebrow={landing[lang].refs.eyebrow} />
+      </div>
     </>
   );
 }

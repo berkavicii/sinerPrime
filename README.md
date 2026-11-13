@@ -8,12 +8,13 @@ Statik export olarak derlenir; Node.js gerektirmeden Plesk üzerinde yayınlanı
 
 | Yol | İçerik |
 | --- | --- |
-| `/tr/`, `/en/` | Scroll ile ilerleyen 3D ONIX anlatımı (exploded view), yaklaşım, koleksiyon, öz-değerlendirme, referans şeridi |
-| `/[dil]/kurumsal/` | Hikâye, rakamlar, departman bazlı projeler, mevcut durum değerlendirmesi, ekip |
-| `/[dil]/referanslar/` | Logo duvarı, sektörler, THY ve ASELSAN örnek çalışmaları |
+| `/tr/`, `/en/` | 2 dakikalık kartvizit, 7 durak: koku → biz kimiz → projelendirme → koku makineleri → Kubbe → ONIX → referanslar |
+| `/[dil]/projeler/` | Süreç, Kurumsal / Otel sekmeleri (hediye stratejisi, toplu sipariş, departman bazlı projeler, tesis değerlendirmesi), hikâyemiz |
+| `/[dil]/cihazlar/` | Siner Tower, Minimal Line, Extra-Wall + tesis değerlendirme testi |
+| `/[dil]/urunler/` | Buhurdanlıklar: ONIX ve Kubbe'nin scroll ile parçalarına ayrılan 3D anlatımı |
 | `/[dil]/onix/` | ONIX kurumsal buhurdanlık + logo yüklenebilen 3D tasarım stüdyosu |
-| `/[dil]/kubbe/` | Kubbe seramik buhurdanlık |
-| `/[dil]/cihazlar/` | Siner Tower, Minimal Line, Extra-Wall |
+| `/[dil]/kubbe/` | Kubbe seramik buhurdanlık detayları |
+| `/[dil]/referanslar/` | Logo duvarı, sektörler, THY ve ASELSAN örnek çalışmaları |
 
 ## Geliştirme
 
@@ -25,7 +26,8 @@ npm run dev        # http://localhost:3000
 > Dev sunucusunu `localhost` üzerinden açın; Next 16, `127.0.0.1` gibi başka origin'lerden dev kaynaklarını engeller.
 
 İçerik metinleri `src/content/` altında (TR + EN), iletişim bilgileri `src/lib/contact.ts` dosyasında.
-ONIX'in 3D modeli `src/components/three/onix.tsx` içinde ölçülere göre (8 cm × Ø 7,8 cm) kodla üretilir.
+ONIX (`src/components/three/onix.tsx`, 8 cm × Ø 7,8 cm) ve Kubbe (`src/components/three/kubbe.tsx`, 11,5 cm) 3D modelleri ölçülere göre kodla üretilir.
+Ana sayfa metinleri `src/content/landing.ts` dosyasındadır.
 
 ## Render'a yayınlama
 

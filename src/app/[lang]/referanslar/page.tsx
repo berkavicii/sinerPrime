@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { references } from "@/content/pages";
-import { common } from "@/content/common";
 import { asLocale } from "@/lib/i18n";
-import { whatsappLink } from "@/lib/contact";
 import { References } from "@/components/home/sections";
-import { FadeIn, ParallaxImage, RiseText } from "@/components/site/motion";
+import { FadeIn, RiseText } from "@/components/site/motion";
 import { ButtonLink } from "@/components/ui/button";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/referanslar">): Promise<Metadata> {
@@ -15,7 +13,6 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/referansla
 export default async function ReferencesPage({ params }: PageProps<"/[lang]/referanslar">) {
   const lang = asLocale((await params).lang);
   const r = references[lang];
-  const cm = common[lang];
 
   return (
     <>
@@ -30,7 +27,7 @@ export default async function ReferencesPage({ params }: PageProps<"/[lang]/refe
         </h1>
         <div className="mt-12 flex flex-col justify-between gap-8 border-t border-line pt-8 md:flex-row md:items-end">
           <FadeIn delay={0.3}>
-            <p className="max-w-lg text-[16px] leading-relaxed text-ink-soft">{r.hero.lead}</p>
+            <p className="max-w-lg text-[16px] leading-[1.75] text-ink-soft">{r.hero.lead}</p>
           </FadeIn>
           <p className="display text-gold-foil text-[clamp(4rem,8vw,8rem)] leading-none">50+</p>
         </div>
@@ -60,34 +57,12 @@ export default async function ReferencesPage({ params }: PageProps<"/[lang]/refe
         </div>
       </section>
 
-      {/* case studies */}
-      <section className="gutter mx-auto max-w-[1600px] py-20 sm:py-32 lg:py-44">
-        <p className="eyebrow">{r.cases.eyebrow}</p>
-        <RiseText as="h2" text={r.cases.title} className="display mt-5 text-[clamp(2.6rem,6vw,6rem)] text-ink" />
-        <div className="mt-20 flex flex-col gap-32">
-          {r.cases.items.map((c, i) => (
-            <article key={c.brand} className="grid items-center gap-10 lg:grid-cols-12">
-              <div className={`grid grid-cols-5 gap-4 lg:col-span-7 ${i % 2 ? "lg:order-2 lg:col-start-6" : ""}`}>
-                <ParallaxImage src={c.images[0]} alt={c.brand} className="col-span-3 aspect-[3/4]" />
-                <ParallaxImage src={c.images[1]} alt="" className="col-span-2 mt-12 aspect-[3/4] sm:mt-24" strength={30} />
-              </div>
-              <div className={`lg:col-span-4 ${i % 2 ? "lg:order-1" : "lg:col-start-9"}`}>
-                <p className="eyebrow !text-gold">{c.brand}</p>
-                <h3 className="display mt-5 text-[clamp(2rem,3.4vw,3.4rem)] text-ink">{c.title}</h3>
-                <p className="mt-6 text-[15px] leading-relaxed text-ink-soft">{c.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <p className="mt-20 text-[12px] text-muted">{r.cases.note}</p>
-      </section>
-
       {/* cta */}
       <section className="gutter mx-auto max-w-[1600px] pb-20 sm:pb-32 lg:pb-44">
         <div className="grid items-end gap-10 border-t border-line pt-16 lg:grid-cols-12">
           <RiseText as="h2" text={r.cta.title} className="display text-[clamp(2.4rem,5vw,5rem)] text-ink lg:col-span-8" />
           <div className="lg:col-span-3 lg:col-start-10">
-            <ButtonLink href={whatsappLink(cm.whatsappMessage)} size="lg">
+            <ButtonLink href="#iletisim" size="lg">
               {r.cta.button}
             </ButtonLink>
           </div>

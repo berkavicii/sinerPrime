@@ -8,11 +8,11 @@ export function Footer({ lang }: { lang: Locale }) {
   const c = common[lang];
   return (
     <footer className="weave relative overflow-hidden border-t border-line bg-night-2" id="iletisim">
-      <div className="gutter mx-auto grid max-w-[1600px] gap-16 pt-24 pb-12 lg:grid-cols-12 lg:pt-32">
+      <div className="gutter mx-auto grid max-w-[1600px] gap-16 pt-16 pb-12 sm:pt-24 lg:grid-cols-12 lg:pt-32">
         <div className="lg:col-span-7">
           <p className="eyebrow mb-8">{c.footer.contact}</p>
-          <h2 className="display max-w-[14ch] text-[clamp(2.4rem,5.4vw,5.2rem)] text-ink">{c.footer.lead}</h2>
-          <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-ink-soft">{c.footer.body}</p>
+          <h2 className="display text-[clamp(2.4rem,5.4vw,5.2rem)] text-ink sm:max-w-[14ch]">{c.footer.lead}</h2>
+          <p className="mt-8 max-w-xl text-[15px] leading-[1.75] text-ink-soft">{c.footer.body}</p>
           <div className="mt-10 flex flex-wrap gap-3">
             <ButtonLink href={whatsappLink(c.whatsappMessage)} size="lg">
               {c.whatsapp}
@@ -35,7 +35,7 @@ export function Footer({ lang }: { lang: Locale }) {
           </div>
           <div className="flex flex-col gap-3">
             <p className="eyebrow mb-2">{c.footer.explore}</p>
-            {c.nav.slice(0, 3).map((n) => (
+            {c.nav.map((n) => (
               <Link key={n.path} href={href(lang, n.path)} className="text-ink-soft transition-colors hover:text-gold-hi">
                 {n.label}
               </Link>
@@ -64,7 +64,7 @@ export function Footer({ lang }: { lang: Locale }) {
         <span>
           © {new Date().getFullYear()} Siner Prime · {c.footer.rights}
         </span>
-        <span className="tracking-[0.3em] uppercase">{c.tagline}</span>
+        <span lang="en" className="tracking-[0.3em] uppercase">{c.tagline}</span>
       </div>
     </footer>
   );

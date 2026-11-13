@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { devices } from "@/content/products";
 import { asLocale } from "@/lib/i18n";
-import { whatsappLink } from "@/lib/contact";
 import { DeviceChapter, Spaces } from "@/components/devices/device";
 import { FadeIn, ParallaxImage, RiseText } from "@/components/site/motion";
 import { ButtonLink } from "@/components/ui/button";
@@ -26,7 +25,7 @@ export default async function DevicesPage({ params }: PageProps<"/[lang]/cihazla
           </FadeIn>
           <RiseText as="h1" text={d.hero.title} className="display mt-6 max-w-[14ch] text-[clamp(3rem,8vw,8.6rem)] text-ink" />
           <FadeIn delay={0.3}>
-            <p className="mt-8 max-w-lg text-[15px] leading-relaxed text-ink-soft">{d.hero.body}</p>
+            <p className="mt-8 max-w-lg text-[15px] leading-[1.75] text-ink-soft">{d.hero.body}</p>
           </FadeIn>
           <nav className="mt-12 flex flex-wrap gap-3">
             {d.devices.map((dev, i) => (
@@ -53,9 +52,9 @@ export default async function DevicesPage({ params }: PageProps<"/[lang]/cihazla
         <div className="grid items-end gap-10 border-t border-line pt-16 lg:grid-cols-12">
           <RiseText as="h2" text={d.cta.title} className="display text-[clamp(2.4rem,5vw,5rem)] text-ink lg:col-span-7" />
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="text-[15px] leading-relaxed text-ink-soft">{d.cta.body}</p>
-            <ButtonLink href={whatsappLink(d.cta.message)} size="lg" className="mt-8">
-              {lang === "tr" ? "Keşif görüşmesi planlayın" : "Plan a site visit"}
+            <p className="text-[15px] leading-[1.75] text-ink-soft">{d.cta.body}</p>
+            <ButtonLink href="#iletisim" size="lg" className="mt-8">
+              {lang === "tr" ? "İletişime geçin" : "Get in touch"}
             </ButtonLink>
           </div>
         </div>

@@ -30,24 +30,24 @@ export function ZoomHero({ name, eyebrow, title }: { name: string; eyebrow: stri
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(10,10,11,0.35))]" />
         </motion.div>
 
-        <motion.div style={{ y: nameY, opacity: nameOpacity }} className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-[12vh] sm:justify-center sm:pb-0">
+        <motion.div style={{ y: nameY, opacity: nameOpacity }} className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end pb-[12vh] mix-blend-difference sm:justify-center sm:pb-0">
           <motion.p
-            className="eyebrow !text-night/70"
+            className="eyebrow !text-white/80"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 1 }}
           >
             {eyebrow}
           </motion.p>
-          <h1 className="display mt-4 overflow-hidden text-[clamp(6rem,24vw,26rem)] leading-[0.8] tracking-[-0.05em] text-night mix-blend-overlay">
+          <h1 className="display mt-4 overflow-hidden text-[clamp(6rem,24vw,26rem)] leading-[0.8] tracking-[-0.05em] text-white">
             <motion.span className="block" initial={{ y: "100%" }} animate={{ y: "0%" }} transition={{ duration: 1.4, ease: silk, delay: 0.2 }}>
               {name}
             </motion.span>
           </h1>
         </motion.div>
 
-        <motion.div style={{ opacity: titleOpacity, y: titleY }} className="gutter absolute inset-x-0 bottom-[8vh]">
-          <p className="display max-w-[12ch] text-[clamp(2.6rem,6vw,6.4rem)] text-night">{title}</p>
+        <motion.div style={{ opacity: titleOpacity, y: titleY }} className="gutter absolute inset-x-0 bottom-[8vh] mix-blend-difference">
+          <p className="display max-w-[12ch] text-[clamp(2.6rem,6vw,6.4rem)] text-white">{title}</p>
         </motion.div>
       </div>
     </section>

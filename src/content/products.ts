@@ -49,41 +49,6 @@ const onixTr = {
       ["Tepki süresi", "Doğrudan yağ kullanımında yaklaşık 50 saniye"],
     ],
   },
-  strategy: {
-    eyebrow: "Kurumsal hediye stratejisi",
-    title: "Hediyeniz markanız hakkında ne anlatıyor?",
-    questions: [
-      "Verdiğiniz hediye, kullanıldığı ortamda markanızın kimliğini yansıtıyor mu?",
-      "Yalnızca mevcut müşterilerinize mi ulaşıyorsunuz, yoksa potansiyel iş ortaklarınızla da anlamlı bir ilk temas kuruyor musunuz?",
-      "Hediyeniz özel bir günün ardından günlük yaşamda kullanılmaya devam ediyor mu?",
-      "Farklı müşteri gruplarına aynı kalite ve marka bütünlüğünü sunabiliyor musunuz?",
-      "Kurumsal hediyeniz yalnızca dağıtılan bir ürün mü, yoksa hatırlanmayı sağlayan bir deneyim mi?",
-    ],
-  },
-  audiences: {
-    eyebrow: "Kullanım alanları",
-    title: "Markanızın temas ettiği herkes için.",
-    items: [
-      { name: "Mevcut müşteriler", body: "İş ilişkisini güçlendiren ve teşekkür duygusunu taşıyan kurumsal armağan." },
-      { name: "Potansiyel müşteriler", body: "Henüz iş birliği başlamadan markayla pozitif bir ilk temas." },
-      { name: "Çalışanlar ve ekipler", body: "Hoş geldin, doğum günü, çalışma yıl dönümü ve motivasyon hediyeleri." },
-      { name: "İş ortakları", body: "Tedarikçiler, bayiler, distribütörler ve çözüm ortakları için özel hediye." },
-      { name: "Etkinlik ve organizasyonlar", body: "Lansman, toplantı, fuar, kongre ve özel davetlerde hatırlanır bir sunum." },
-    ],
-  },
-  order: {
-    eyebrow: "Toplu sipariş",
-    title: "Adede göre avantajlı fiyatlandırma.",
-    body: "500, 1.000 ve 2.000 adetlik kurumsal siparişlerde birim fiyat avantajı sunuyoruz. Logo uygulaması, özel ambalaj ve koku kapsamı sipariş içeriğine göre netleştirilir.",
-    steps: [
-      { name: "Kişiselleştirme", body: "Logo ve grafik uygulamasının onayı." },
-      { name: "Ambalaj", body: "Standart veya markaya özel ambalaj tercihi." },
-      { name: "Koku", body: "Koku seçimi ve ürün içeriği." },
-      { name: "Teslimat", body: "Üretim takvimi, sevkiyat ve ödeme planı." },
-    ],
-    cta: "Teklif alın",
-    message: "Merhaba, ONIX kurumsal buhurdanlık için toplu sipariş teklifi almak istiyorum.",
-  },
 };
 
 const onixEn: typeof onixTr = {
@@ -134,41 +99,6 @@ const onixEn: typeof onixTr = {
       ["Bowl", "Removable and washable"],
       ["Response time", "About 50 seconds with pure oil"],
     ],
-  },
-  strategy: {
-    eyebrow: "Corporate gifting strategy",
-    title: "What does your gift say about your brand?",
-    questions: [
-      "Does your gift reflect your brand identity where it is used?",
-      "Do you only reach existing clients, or also make a meaningful first contact with potential partners?",
-      "Does your gift stay in daily use after the special day has passed?",
-      "Can you offer every client group the same quality and brand consistency?",
-      "Is your corporate gift just a product handed out, or an experience that makes you remembered?",
-    ],
-  },
-  audiences: {
-    eyebrow: "Who it is for",
-    title: "For everyone your brand touches.",
-    items: [
-      { name: "Existing clients", body: "A corporate gift that strengthens the relationship and carries your thanks." },
-      { name: "Prospective clients", body: "A positive first contact before the partnership even begins." },
-      { name: "Employees and teams", body: "Welcome, birthday, work-anniversary and motivation gifts." },
-      { name: "Business partners", body: "A special gift for suppliers, dealers, distributors and partners." },
-      { name: "Events", body: "A memorable presentation at launches, meetings, fairs, congresses and private invitations." },
-    ],
-  },
-  order: {
-    eyebrow: "Bulk orders",
-    title: "Better pricing with volume.",
-    body: "Corporate orders of 500, 1,000 and 2,000 units come with unit-price advantages. Logo application, custom packaging and scent are finalised according to the order.",
-    steps: [
-      { name: "Personalisation", body: "Approval of logo and artwork." },
-      { name: "Packaging", body: "Standard or brand-specific packaging." },
-      { name: "Scent", body: "Fragrance selection and contents." },
-      { name: "Delivery", body: "Production schedule, shipping and payment plan." },
-    ],
-    cta: "Request a quote",
-    message: "Hello, I would like a bulk order quote for the ONIX corporate oil burner.",
   },
 };
 

@@ -1,21 +1,16 @@
 import type { Locale } from "@/lib/i18n";
 
-const corporateTr = {
+/* The projects page: our story, the process, and two tracks (corporate and hotels). */
+const projectsTr = {
   meta: {
-    title: "Kurumsal",
-    description: "Turizm ve konaklama sektörüne özel koku tasarımı, profesyonel koku teknolojileri ve mekânsal deneyim çözümleri.",
+    title: "Projeler",
+    description: "Kurumlar ve oteller için koku projelendirme: kurumsal hediye stratejisi, markaya özel koku, departman bazlı otel projeleri.",
   },
   hero: {
-    eyebrow: "Biz kimiz · Koku, tasarım, deneyim, üretim",
-    title: ["İşini tutkuyla yapan markaların", "duyulara dokunan imzasını", "tasarlıyoruz."],
-    lead: "Turizm ve konaklama sektörüne özel koku tasarımı, profesyonel koku teknolojileri ve mekânsal deneyim çözümleri.",
+    eyebrow: "Projeler · Projelendirme",
+    title: ["Markanızın koku", "hikâyesini birlikte", "tasarlayalım."],
+    lead: "Kurumlar ve oteller için kokuyu bir proje olarak ele alıyoruz: keşiften koku tasarımına, üretimden kurulum ve servise kadar tek elden.",
   },
-  numbers: [
-    { value: 15, suffix: "", label: "Yıllık birikim" },
-    { value: 12, suffix: "", label: "Zanaatkâr ve uzman" },
-    { value: 50, suffix: "+", label: "Kurum, otel ve marka" },
-    { value: 8, suffix: "", label: "Departmana özel çözüm" },
-  ],
   story: {
     eyebrow: "Hikâyemiz",
     paragraphs: [
@@ -26,42 +21,63 @@ const corporateTr = {
     belief:
       "Bizim için mesele yalnızca güzel kokular üretmek değil; kaynaklara yeniden değer kazandırmak, mekânlara kimlik katmak ve zaman geçse de hatırlanacak izler bırakmak.",
   },
-  evaluate: {
-    eyebrow: "Mevcut durumu değerlendirin",
-    title: "Koku bir sistemdir, bir şişe değil.",
-    items: [
-      "Koku sistemleriniz alanın büyüklüğüne, kullanım yoğunluğuna ve gün içindeki ihtiyaca göre çalışıyor mu?",
-      "Lobi, spa, restoran, koridor ve odalar kendi kullanım amacı ve atmosferine göre ayrı ayrı değerlendiriliyor mu?",
-      "Seçtiğiniz koku; mimarinizi, konseptinizi ve hedef kitlenizi destekleyerek tutarlı bir kimlik oluşturuyor mu?",
-      "Tuvalet, mutfak çevresi ve atık alanlarında istenmeyen kokular kaynağında kontrol altına alınıyor mu?",
-      "Cihaz, bakım, sarf malzeme ve teknik servis süreçleriniz takip edilebilir ve kesintisiz yönetiliyor mu?",
-      "Birden fazla lokasyonda aynı koku, ürün ve hizmet standardını sürdürebiliyor musunuz?",
-      "Misafir geri bildirimlerini koku ve hizmet deneyiminizi geliştirmek için kullanıyor musunuz?",
+  process: {
+    eyebrow: "Nasıl çalışıyoruz",
+    steps: [
+      { k: "01", title: "Keşif", body: "Mekânı ya da markayı yerinde inceliyor; ihtiyacı, alanı ve hedef kitleyi çıkarıyoruz." },
+      { k: "02", title: "Koku tasarımı", body: "Markanızın karakterine uygun imza kokuyu seçiyor ya da sıfırdan geliştiriyoruz." },
+      { k: "03", title: "Üretim", body: "Koku, cihaz, seramik obje ve ambalajı kendi fabrikamızda üretiyoruz." },
+      { k: "04", title: "Kurulum ve servis", body: "Kurulum, periyodik bakım, koku yenileme ve teknik servis; her lokasyonda aynı standart." },
     ],
   },
-  approach: {
-    eyebrow: "Siner'in yaklaşımı",
-    body: "Otele özel koku tasarımı, deneyim odaklı projeler, markaya özel ürünler, kurumsal hediyeler ve sürdürülebilir hizmet çözümleriyle misafir ve çalışan deneyimini güçlendiren, markanın hafızada kalmasını sağlayan bütünsel projeler geliştiriyoruz.",
+  tabs: { kurumsal: "Kurumsal projeler", oteller: "Otel projeleri" },
+  corporate: {
+    strategy: {
+      eyebrow: "Kurumsal hediye stratejisi",
+      title: "Hediyeniz markanız hakkında ne anlatıyor?",
+      questions: [
+        "Verdiğiniz hediye, kullanıldığı ortamda markanızın kimliğini yansıtıyor mu?",
+        "Yalnızca mevcut müşterilerinize mi ulaşıyorsunuz, yoksa potansiyel iş ortaklarınızla da anlamlı bir ilk temas kuruyor musunuz?",
+        "Hediyeniz özel bir günün ardından günlük yaşamda kullanılmaya devam ediyor mu?",
+        "Farklı müşteri gruplarına aynı kalite ve marka bütünlüğünü sunabiliyor musunuz?",
+        "Kurumsal hediyeniz yalnızca dağıtılan bir ürün mü, yoksa hatırlanmayı sağlayan bir deneyim mi?",
+      ],
+    },
+    audiences: {
+      eyebrow: "Kimler için",
+      title: "Markanızın temas ettiği herkes için.",
+      items: [
+        { name: "Mevcut müşteriler", body: "İş ilişkisini güçlendiren ve teşekkür duygusunu taşıyan kurumsal armağan." },
+        { name: "Potansiyel müşteriler", body: "Henüz iş birliği başlamadan markayla pozitif bir ilk temas." },
+        { name: "Çalışanlar ve ekipler", body: "Hoş geldin, doğum günü, çalışma yıl dönümü ve motivasyon hediyeleri." },
+        { name: "İş ortakları", body: "Tedarikçiler, bayiler, distribütörler ve çözüm ortakları için özel hediye." },
+        { name: "Etkinlikler", body: "Lansman, toplantı, fuar, kongre ve özel davetlerde hatırlanır bir sunum." },
+      ],
+    },
+    order: {
+      eyebrow: "Toplu sipariş",
+      title: "Toplu üretim, tek elden.",
+      body: "500, 1.000 ve 2.000 adetlik kurumsal siparişlerde logo uygulaması, özel ambalaj ve koku kapsamı sipariş içeriğine göre birlikte netleştirilir.",
+      steps: [
+        { name: "Kişiselleştirme", body: "Logo ve grafik uygulamasının onayı." },
+        { name: "Ambalaj", body: "Standart veya markaya özel ambalaj tercihi." },
+        { name: "Koku", body: "Koku seçimi ve ürün içeriği." },
+        { name: "Teslimat", body: "Üretim takvimi, sevkiyat ve ödeme planı." },
+      ],
+    },
   },
-  cta: "Tanışalım",
 };
 
-const corporateEn: typeof corporateTr = {
+const projectsEn: typeof projectsTr = {
   meta: {
-    title: "Studio",
-    description: "Custom scent design, professional scenting technologies and spatial experience solutions for tourism and hospitality.",
+    title: "Projects",
+    description: "Scent projects for institutions and hotels: corporate gifting strategy, brand-specific scent and department-based hotel projects.",
   },
   hero: {
-    eyebrow: "Who we are · Scent, design, experience, production",
-    title: ["We design the sensory signature", "of brands that are passionate", "about what they do."],
-    lead: "Custom scent design, professional scenting technologies and spatial experience solutions tailored to tourism and hospitality.",
+    eyebrow: "Projects · Project design",
+    title: ["Let's design", "your brand's scent", "story together."],
+    lead: "For institutions and hotels we treat scent as a project: from survey to scent design, from production to installation and service, all in-house.",
   },
-  numbers: [
-    { value: 15, suffix: "", label: "Years of craft" },
-    { value: 12, suffix: "", label: "Craftspeople and specialists" },
-    { value: 50, suffix: "+", label: "Institutions, hotels and brands" },
-    { value: 8, suffix: "", label: "Department-specific solutions" },
-  ],
   story: {
     eyebrow: "Our story",
     paragraphs: [
@@ -72,24 +88,51 @@ const corporateEn: typeof corporateTr = {
     belief:
       "For us, it is not simply about creating beautiful fragrances. It is about giving new value to resources, adding identity to spaces and leaving impressions that last long after the moment has passed.",
   },
-  evaluate: {
-    eyebrow: "Evaluate the current situation",
-    title: "Scent is a system, not a bottle.",
-    items: [
-      "Do your scent systems work to the size of the space, its usage intensity and the changing needs of the day?",
-      "Are the lobby, spa, restaurant, corridors and rooms each assessed for their own purpose and atmosphere?",
-      "Does your chosen scent support your architecture, concept and audience to form a consistent identity?",
-      "Are unpleasant odours in restrooms, kitchens and waste areas controlled at the source?",
-      "Are devices, maintenance, consumables and technical service managed in a trackable, uninterrupted way?",
-      "Can you keep the same scent, product and service standard across every location?",
-      "Do you use guest feedback to improve your scent and service experience?",
+  process: {
+    eyebrow: "How we work",
+    steps: [
+      { k: "01", title: "Survey", body: "We study the space or the brand on site and map the need, the area and the audience." },
+      { k: "02", title: "Scent design", body: "We choose, or build from scratch, a signature scent that suits your brand." },
+      { k: "03", title: "Production", body: "Scent, devices, ceramic objects and packaging are made in our own factory." },
+      { k: "04", title: "Installation & service", body: "Installation, maintenance, refills and technical service; one standard at every location." },
     ],
   },
-  approach: {
-    eyebrow: "Siner's approach",
-    body: "Through custom scent design for hotels, experience-driven projects, brand-specific products, corporate gifts and sustainable service solutions, we build holistic projects that strengthen guest and employee experience and make the brand more memorable.",
+  tabs: { kurumsal: "Corporate projects", oteller: "Hotel projects" },
+  corporate: {
+    strategy: {
+      eyebrow: "Corporate gifting strategy",
+      title: "What does your gift say about your brand?",
+      questions: [
+        "Does your gift reflect your brand identity where it is used?",
+        "Do you only reach existing clients, or also make a meaningful first contact with potential partners?",
+        "Does your gift stay in daily use after the special day has passed?",
+        "Can you offer every client group the same quality and brand consistency?",
+        "Is your corporate gift just a product handed out, or an experience that makes you remembered?",
+      ],
+    },
+    audiences: {
+      eyebrow: "Who it is for",
+      title: "For everyone your brand touches.",
+      items: [
+        { name: "Existing clients", body: "A corporate gift that strengthens the relationship and carries your thanks." },
+        { name: "Prospective clients", body: "A positive first contact before the partnership even begins." },
+        { name: "Employees and teams", body: "Welcome, birthday, work-anniversary and motivation gifts." },
+        { name: "Business partners", body: "A special gift for suppliers, dealers, distributors and partners." },
+        { name: "Events", body: "A memorable presentation at launches, meetings, fairs, congresses and private invitations." },
+      ],
+    },
+    order: {
+      eyebrow: "Bulk orders",
+      title: "Volume production, one partner.",
+      body: "For corporate orders of 500, 1,000 and 2,000 units, logo application, custom packaging and scent are finalised with you according to the order.",
+      steps: [
+        { name: "Personalisation", body: "Approval of logo and artwork." },
+        { name: "Packaging", body: "Standard or brand-specific packaging." },
+        { name: "Scent", body: "Fragrance selection and contents." },
+        { name: "Delivery", body: "Production schedule, shipping and payment plan." },
+      ],
+    },
   },
-  cta: "Let's meet",
 };
 
 const referencesTr = {
@@ -114,25 +157,6 @@ const referencesTr = {
     ],
   },
   wall: { eyebrow: "Referanslarımızdan bazıları" },
-  cases: {
-    eyebrow: "Örnek çalışmalar",
-    title: "Aynı form, farklı hikâyeler.",
-    items: [
-      {
-        brand: "Turkish Airlines",
-        title: "Seyahatin kokusu, masada.",
-        body: "Kırmızı-lacivert gövde grafiği, uçuş rotasını çağrıştıran çizgiler, kurumsal kutu ve 'No.2 Dam' kokusuyla ONIX kişiselleştirme çalışması.",
-        images: ["/onix/thy-candle.webp", "/onix/thy-box-open.webp"],
-      },
-      {
-        brand: "ASELSAN",
-        title: "Teknolojinin sıcak yüzü.",
-        body: "Kurumsal mavinin diyagonal hatlarla seramiğe taşındığı, 'A-01' özel koku serisiyle tamamlanan hediye konsepti.",
-        images: ["/onix/aselsan-candle.webp", "/onix/hand-aselsan.webp"],
-      },
-    ],
-    note: "Görseller, markalara uyarlanabilecek tasarım yaklaşımını gösteren kişiselleştirme örnekleridir.",
-  },
   cta: { title: "Sıradaki hikâye sizin markanız olsun.", button: "Projenizi konuşalım" },
 };
 
@@ -158,27 +182,8 @@ const referencesEn: typeof referencesTr = {
     ],
   },
   wall: { eyebrow: "Some of our references" },
-  cases: {
-    eyebrow: "Case studies",
-    title: "One form, different stories.",
-    items: [
-      {
-        brand: "Turkish Airlines",
-        title: "The scent of travel, on the desk.",
-        body: "An ONIX personalisation study with red and navy body graphics, lines that recall a flight path, a corporate box and the 'No.2 Dam' scent.",
-        images: ["/onix/thy-candle.webp", "/onix/thy-box-open.webp"],
-      },
-      {
-        brand: "ASELSAN",
-        title: "The warm side of technology.",
-        body: "A gift concept carrying corporate blue onto ceramic in diagonal lines, completed with the 'A-01' signature scent series.",
-        images: ["/onix/aselsan-candle.webp", "/onix/hand-aselsan.webp"],
-      },
-    ],
-    note: "These images are personalisation studies showing a design approach that can be adapted to any brand.",
-  },
   cta: { title: "Let the next story be your brand's.", button: "Let's talk about your project" },
 };
 
-export const corporate: Record<Locale, typeof corporateTr> = { tr: corporateTr, en: corporateEn };
+export const projects: Record<Locale, typeof projectsTr> = { tr: projectsTr, en: projectsEn };
 export const references: Record<Locale, typeof referencesTr> = { tr: referencesTr, en: referencesEn };

@@ -53,6 +53,7 @@ export function Intro() {
               SINER
             </motion.p>
             <motion.p
+              lang="en"
               className="eyebrow mt-4 !text-gold"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
