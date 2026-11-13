@@ -83,18 +83,18 @@ export function TrackSpaces({
 export function TrackPurchase({ lang, track, className }: { lang: Locale; track: TrackId; className?: string }) {
   const c = tracks[lang].tracks[track].purchase;
   return (
-    <div className={cn("grid gap-8 lg:grid-cols-12", className)}>
+    <div className={cn("grid gap-5 sm:gap-8 lg:grid-cols-12", className)}>
       <div className="lg:col-span-4">
         <p className="eyebrow !text-gold">{c.eyebrow}</p>
         <h3 className="display mt-4 text-[clamp(1.9rem,3.2vw,3.2rem)] leading-[1.05] text-ink">{c.title}</h3>
       </div>
       <ul className="grid gap-x-10 sm:grid-cols-2 lg:col-span-8">
         {c.items.map((it, i) => (
-          <FadeIn key={it.k} delay={(i % 2) * 0.06} className="flex gap-4 border-t border-line py-5 sm:py-6">
+          <FadeIn key={it.k} delay={(i % 2) * 0.06} className="flex gap-4 border-t border-line py-4 sm:py-6">
             <span className="pt-1 text-[11px] tracking-[0.2em] text-gold">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <p className="text-[15px] text-ink sm:text-[16px]">{it.k}</p>
-              <p className="mt-1.5 text-[13px] leading-[1.65] text-ink-soft sm:text-[14px]">{it.body}</p>
+              <p className="mt-1 text-[12.5px] leading-[1.6] text-ink-soft sm:mt-1.5 sm:text-[14px] sm:leading-[1.65]">{it.body}</p>
             </div>
           </FadeIn>
         ))}
@@ -137,8 +137,8 @@ export function HomeTracks({ lang }: { lang: Locale }) {
           className="mt-10 sm:mt-14"
         >
           <TrackBenefits lang={lang} track={active} />
-          <TrackSpaces lang={lang} track={active} compact className="mt-14 sm:mt-20" />
-          <TrackPurchase lang={lang} track={active} className="mt-14 sm:mt-20" />
+          <TrackSpaces lang={lang} track={active} compact className="mt-12 sm:mt-20" />
+          <TrackPurchase lang={lang} track={active} className="mt-12 sm:mt-20" />
           <div className="mt-10 flex flex-wrap gap-3 sm:mt-14">
             <ButtonLink href="#iletisim">{c.cta}</ButtonLink>
             <ButtonLink href={href(lang, `projeler#${active}`)} variant="ghost">

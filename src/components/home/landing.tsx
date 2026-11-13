@@ -186,36 +186,9 @@ export function Who({ lang }: { lang: Locale }) {
           ))}
         </div>
 
-        {/* the people behind it */}
-        <div className="mt-12 border-t border-line pt-8 sm:mt-16 sm:pt-10">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <p className="eyebrow !text-gold">{c.team.label}</p>
-            <p className="max-w-md text-[13px] leading-[1.6] text-muted sm:text-right">{c.team.note}</p>
-          </div>
-          <div className="mt-6 grid grid-cols-3 gap-x-2 gap-y-6 sm:mt-8 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-6">
-            {c.team.people.map((m, i) => (
-              <FadeIn key={m.slug} delay={(i % 6) * 0.05} className="group">
-                <div className="relative aspect-square overflow-hidden bg-night">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={`/team/${m.slug}.webp`}
-                    alt={m.name}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover opacity-85 grayscale transition-[filter,opacity,transform] duration-700 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
-                  />
-                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-700 group-hover:scale-x-100" />
-                </div>
-                <p className="mt-2 text-[12px] leading-tight text-ink sm:mt-3 sm:text-[14px]">{m.name}</p>
-                <p className="mt-1 text-[10.5px] leading-snug text-muted sm:text-[12px]">{m.role}</p>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-12 grid grid-cols-2 gap-px bg-line sm:mt-16 lg:grid-cols-4">
+        <div className="mt-4 grid grid-cols-2 gap-px bg-line lg:grid-cols-4">
           {c.numbers.map((n) => (
-            <div key={n.label} className="bg-night-2 py-6 pr-3 sm:py-10 sm:pr-4">
+            <div key={n.label} className="bg-night-2 py-6 pr-3 even:pl-4 sm:py-10 sm:pr-4 sm:even:pl-6 lg:[&:nth-child(3)]:pl-6">
               <p className="display text-[clamp(2.4rem,4.6vw,4.6rem)] leading-none text-ink">
                 <Counter value={n.value} />
                 <span className="text-gold-foil">{n.suffix}</span>
