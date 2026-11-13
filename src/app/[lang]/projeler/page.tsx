@@ -4,6 +4,7 @@ import { asLocale } from "@/lib/i18n";
 import { Departments } from "@/components/home/sections";
 import { Audit } from "@/components/home/audit";
 import { ProjectTabs } from "@/components/projects/tabs";
+import { TrackBenefits, TrackPurchase, TrackSpaces } from "@/components/projects/pitch";
 import { FadeIn, RiseText, ScrollLitText } from "@/components/site/motion";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/projeler">): Promise<Metadata> {
@@ -18,8 +19,14 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projel
 
   const corporateTrack = (
     <>
+      <section className="gutter mx-auto max-w-[1600px] py-16 sm:py-28 lg:py-36">
+        <TrackBenefits lang={lang} track="kurumsal" />
+        <TrackSpaces lang={lang} track="kurumsal" className="mt-16 sm:mt-24" />
+        <TrackPurchase lang={lang} track="kurumsal" className="mt-16 sm:mt-24" />
+      </section>
+
       {/* gifting strategy */}
-      <section className="gutter mx-auto max-w-[1600px] py-20 sm:py-28 lg:py-36">
+      <section className="gutter mx-auto max-w-[1600px] border-t border-line py-20 sm:py-28 lg:py-36">
         <p className="eyebrow !text-gold">{c.strategy.eyebrow}</p>
         <RiseText as="h2" text={c.strategy.title} className="display mt-5 max-w-[18ch] text-[clamp(2.4rem,5vw,5rem)] text-ink" />
         <ol className="mt-14 grid gap-x-16 md:grid-cols-2">
@@ -80,6 +87,11 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/projel
 
   const hotelTrack = (
     <>
+      <section className="gutter mx-auto max-w-[1600px] py-16 sm:py-28 lg:py-36">
+        <TrackBenefits lang={lang} track="oteller" />
+        <TrackSpaces lang={lang} track="oteller" className="mt-16 sm:mt-24" />
+        <TrackPurchase lang={lang} track="oteller" className="mt-16 sm:mt-24" />
+      </section>
       <Departments lang={lang} />
       <Audit lang={lang} />
     </>

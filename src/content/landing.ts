@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n";
 
 /*
   The home page is a business card that reads in about two minutes, in seven stops:
-  01 scent & our approach → 02 who we are (maker, factory, vision) → 03 projects →
+  01 scent & our approach → 02 who we are (maker, factory, vision) → 03 hotels →
   04 scent machines → 05 Kubbe → 06 ONIX → 07 references.
   Figures and copy are drafts until Siner sends the final content (see NOTLAR.md).
   `image: null` renders a framed placeholder until the photo arrives.
@@ -79,26 +79,6 @@ const tr = {
       { k: "Doğayı sev, yeşili koru", body: "Atık camları koku şişelerine dönüştürüyor, geri dönüşüm projeleriyle sıfır karbon ayak izine katkı sağlıyoruz." },
       { k: "İnsana iyi gelen koku", body: "Kokularımızı insan sağlığını gözeterek, yormayan ve rahatlatan formüllerle geliştiriyoruz." },
     ],
-  },
-  projects: {
-    eyebrow: "03 · Projelendirme",
-    title: "Markanızın koku hikâyesini birlikte tasarlayalım.",
-    lead: "Bir kokunun mekânda yaşaması bir projedir: keşif, koku tasarımı, cihaz planı, üretim, kurulum ve servis. Hepsini tek elden yürütüyoruz.",
-    tracks: [
-      {
-        id: "kurumsal",
-        name: "Kurumsal",
-        body: "Kurum kokusu, markaya özel ürünler ve kurumsal hediye stratejisi. Hediyeniz bir gün değil, her gün hatırlansın.",
-        points: ["Kurumsal hediye stratejisi", "Markaya özel koku ve ürün", "Toplu üretim ve teslimat"],
-      },
-      {
-        id: "oteller",
-        name: "Oteller",
-        body: "Lobiden odaya, departman bazlı ve çözüm odaklı koku projeleri. Misafiriniz sizi kokunuzla hatırlasın.",
-        points: ["Departman bazlı projeler", "Tesis koku değerlendirmesi", "Çoklu tesiste tek standart"],
-      },
-    ],
-    more: "Projeleri inceleyin",
   },
   machines: {
     eyebrow: "04 · Koku makineleri",
@@ -207,26 +187,6 @@ const en: typeof tr = {
       { k: "Love nature, keep it green", body: "We turn waste glass into fragrance bottles and contribute to a zero carbon footprint through recycling projects." },
       { k: "Scent that does you good", body: "Our fragrances are developed with human health in mind, in formulas that soothe rather than tire." },
     ],
-  },
-  projects: {
-    eyebrow: "03 · Projects",
-    title: "Let's design your brand's scent story together.",
-    lead: "Bringing a scent to life in a space is a project: survey, scent design, device plan, production, installation and service. We run all of it in-house.",
-    tracks: [
-      {
-        id: "kurumsal",
-        name: "Corporate",
-        body: "Corporate scent, brand-specific products and a corporate gifting strategy. A gift remembered every day, not for a day.",
-        points: ["Corporate gifting strategy", "Brand-specific scent and products", "Volume production and delivery"],
-      },
-      {
-        id: "oteller",
-        name: "Hotels",
-        body: "From lobby to room, department-based and solution-driven scent projects. Let guests remember you by your scent.",
-        points: ["Department-based projects", "Property scent assessment", "One standard across properties"],
-      },
-    ],
-    more: "Explore projects",
   },
   machines: {
     eyebrow: "04 · Scent machines",

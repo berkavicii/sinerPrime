@@ -4,12 +4,12 @@ import type { Locale } from "@/lib/i18n";
 const projectsTr = {
   meta: {
     title: "Projeler",
-    description: "Kurumlar ve oteller için koku projelendirme: kurumsal hediye stratejisi, markaya özel koku, departman bazlı otel projeleri.",
+    description: "Oteller ve kurumlar için imza koku, alan bazlı koku makinesi planı, kurulum, servis ve kurumsal hediye.",
   },
   hero: {
     eyebrow: "Projeler · Projelendirme",
-    title: ["Markanızın koku", "hikâyesini birlikte", "tasarlayalım."],
-    lead: "Kurumlar ve oteller için kokuyu bir proje olarak ele alıyoruz: keşiften koku tasarımına, üretimden kurulum ve servise kadar tek elden.",
+    title: ["Otelinize ve kurumunuza", "imza bir koku,", "tek elden."],
+    lead: "Oteller ve kurumlar için alanı inceliyor, kokuyu tasarlıyor, doğru cihazı ve ürünü seçiyor; kurulum, servis ve kurumsal hediyeyi tek elden yürütüyoruz.",
   },
   story: {
     eyebrow: "Hikâyemiz",
@@ -30,7 +30,7 @@ const projectsTr = {
       { k: "04", title: "Kurulum ve servis", body: "Kurulum, periyodik bakım, koku yenileme ve teknik servis; her lokasyonda aynı standart." },
     ],
   },
-  tabs: { kurumsal: "Kurumsal projeler", oteller: "Otel projeleri" },
+  tabs: { oteller: "Otel projeleri", kurumsal: "Kurumsal projeler" },
   corporate: {
     strategy: {
       eyebrow: "Kurumsal hediye stratejisi",
@@ -71,12 +71,12 @@ const projectsTr = {
 const projectsEn: typeof projectsTr = {
   meta: {
     title: "Projects",
-    description: "Scent projects for institutions and hotels: corporate gifting strategy, brand-specific scent and department-based hotel projects.",
+    description: "Signature scents for hotels and companies, space-by-space device plans, installation, service and corporate gifts.",
   },
   hero: {
     eyebrow: "Projects · Project design",
-    title: ["Let's design", "your brand's scent", "story together."],
-    lead: "For institutions and hotels we treat scent as a project: from survey to scent design, from production to installation and service, all in-house.",
+    title: ["A signature scent", "for your hotel and company,", "from one source."],
+    lead: "For hotels and companies we survey the space, design the scent, choose the right device and product, and run installation, service and corporate gifts from a single source.",
   },
   story: {
     eyebrow: "Our story",

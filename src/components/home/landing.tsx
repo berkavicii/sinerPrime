@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { landing } from "@/content/landing";
+import { tracks } from "@/content/tracks";
+import { HomeTracks } from "@/components/projects/pitch";
 import { href, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { Counter, FadeIn, RiseText, ScrollLitText } from "@/components/site/motion";
@@ -237,10 +239,10 @@ export function Who({ lang }: { lang: Locale }) {
   );
 }
 
-/* ---------- 03 projects ---------- */
+/* ---------- 03 projects: hotels and corporate, each with what / where / why us ---------- */
 
 export function Projects({ lang }: { lang: Locale }) {
-  const c = landing[lang].projects;
+  const c = tracks[lang];
   return (
     <section id="projeler" className="scroll-mt-20 border-t border-line">
       <div className="gutter mx-auto max-w-[1600px] py-14 sm:py-28 lg:py-36">
@@ -250,25 +252,7 @@ export function Projects({ lang }: { lang: Locale }) {
             <p className="text-[15px] leading-[1.75] text-ink-soft sm:text-[16px]">{c.lead}</p>
           </FadeIn>
         </div>
-        <div className="mt-10 grid gap-px bg-line sm:mt-14 md:grid-cols-2">
-          {c.tracks.map((t, i) => (
-            <FadeIn key={t.id} delay={i * 0.08} className="bg-night">
-              <Link href={href(lang, `projeler#${t.id}`)} className="group flex h-full flex-col justify-between gap-6 py-7 transition-colors duration-500 hover:bg-night-2 sm:gap-10 sm:p-10">
-                <div>
-                  <h3 className="display text-[clamp(2.2rem,3.6vw,3.6rem)] text-ink transition-colors group-hover:text-gold-hi">{t.name} →</h3>
-                  <p className="mt-3 max-w-md text-[14px] leading-[1.7] text-ink-soft sm:mt-4 sm:text-[15px] sm:leading-[1.75]">{t.body}</p>
-                </div>
-                <ul className="flex flex-wrap gap-2">
-                  {t.points.map((p) => (
-                    <li key={p} className="rounded-full border border-line px-3 py-1.5 text-[11px] text-ink-soft sm:px-4 sm:py-2 sm:text-[12px]">
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </Link>
-            </FadeIn>
-          ))}
-        </div>
+        <HomeTracks lang={lang} />
       </div>
     </section>
   );
@@ -439,7 +423,7 @@ export function ChapterRail({ lang }: { lang: Locale }) {
     <nav
       aria-label="Chapters"
       className={cn(
-        "fixed top-1/2 left-5 z-30 hidden -translate-y-1/2 flex-col gap-4 transition-opacity duration-700 xl:flex",
+        "fixed top-1/2 left-5 z-30 hidden -translate-y-1/2 flex-col gap-4 transition-opacity duration-700 min-[1700px]:flex",
         active ? "opacity-100" : "pointer-events-none opacity-0",
       )}
     >

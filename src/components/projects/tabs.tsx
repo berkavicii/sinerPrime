@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type Tab = "kurumsal" | "oteller";
-const tabs: Tab[] = ["kurumsal", "oteller"];
+const tabs: Tab[] = ["oteller", "kurumsal"];
 
 /** Two project tracks behind one switch; `#kurumsal` and `#oteller` in the URL pick the tab. */
 export function ProjectTabs({
@@ -17,7 +17,7 @@ export function ProjectTabs({
   kurumsal: ReactNode;
   oteller: ReactNode;
 }) {
-  const [active, setActive] = useState<Tab>("kurumsal");
+  const [active, setActive] = useState<Tab>("oteller");
 
   useEffect(() => {
     const read = () => {
@@ -37,8 +37,8 @@ export function ProjectTabs({
   return (
     <section className="relative border-t border-line">
       {/* anchors for links from the home page */}
-      <span id="kurumsal" className="absolute -top-20" aria-hidden />
       <span id="oteller" className="absolute -top-20" aria-hidden />
+      <span id="kurumsal" className="absolute -top-20" aria-hidden />
 
       <div className="border-b border-line bg-night/80 backdrop-blur-xl lg:sticky lg:top-[72px] lg:z-20">
         <div className="gutter mx-auto flex max-w-[1600px] gap-2 py-3" role="tablist">
@@ -68,7 +68,7 @@ export function ProjectTabs({
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          {active === "kurumsal" ? kurumsal : oteller}
+          {active === "oteller" ? oteller : kurumsal}
         </motion.div>
       </AnimatePresence>
     </section>
