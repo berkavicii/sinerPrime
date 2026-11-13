@@ -25,7 +25,7 @@ const frag = /* glsl */ `
   float fbm(vec2 p) {
     float v = 0.0, a = 0.5;
     mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-    for (int i = 0; i < 5; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
+    for (int i = 0; i < 4; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
     return v;
   }
 
@@ -116,11 +116,12 @@ function Field({ fade }: { fade: { current: number } }) {
   return <mesh geometry={geo} material={mat} frustumCulled={false} />;
 }
 
+// rendered at a reduced resolution: the smoke is soft, and a full-res fbm shader stutters scrolling
 export default function ScentField({ active = true, fade }: { active?: boolean; fade: { current: number } }) {
   return (
     <Canvas
       frameloop={active ? "always" : "never"}
-      dpr={[1, 1.25]}
+      dpr={0.6}
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       camera={{ position: [0, 0, 1] }}
     >

@@ -50,7 +50,8 @@ export function Intro({ lang }: { lang: Locale }) {
   const c = landing[lang].intro;
   const ref = useRef<HTMLElement>(null);
   const fade = useRef(0);
-  const inView = useInView(ref, { margin: "20% 0px 20% 0px" });
+  // stop the shader as soon as the hero is mostly scrolled away
+  const inView = useInView(ref, { amount: 0.2 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
@@ -183,7 +184,34 @@ export function Who({ lang }: { lang: Locale }) {
           ))}
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-px bg-line lg:grid-cols-4">
+        {/* the people behind it */}
+        <div className="mt-12 border-t border-line pt-8 sm:mt-16 sm:pt-10">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <p className="eyebrow !text-gold">{c.team.label}</p>
+            <p className="max-w-md text-[13px] leading-[1.6] text-muted sm:text-right">{c.team.note}</p>
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-x-2 gap-y-6 sm:mt-8 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-6">
+            {c.team.people.map((m, i) => (
+              <FadeIn key={m.slug} delay={(i % 6) * 0.05} className="group">
+                <div className="relative aspect-square overflow-hidden bg-night">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/team/${m.slug}.webp`}
+                    alt={m.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover opacity-85 grayscale transition-[filter,opacity,transform] duration-700 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-700 group-hover:scale-x-100" />
+                </div>
+                <p className="mt-2 text-[12px] leading-tight text-ink sm:mt-3 sm:text-[14px]">{m.name}</p>
+                <p className="mt-1 text-[10.5px] leading-snug text-muted sm:text-[12px]">{m.role}</p>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 grid grid-cols-2 gap-px bg-line sm:mt-16 lg:grid-cols-4">
           {c.numbers.map((n) => (
             <div key={n.label} className="bg-night-2 py-6 pr-3 sm:py-10 sm:pr-4">
               <p className="display text-[clamp(2.4rem,4.6vw,4.6rem)] leading-none text-ink">
@@ -411,19 +439,20 @@ export function ChapterRail({ lang }: { lang: Locale }) {
     <nav
       aria-label="Chapters"
       className={cn(
-        "fixed top-1/2 left-5 z-30 hidden -translate-y-1/2 flex-col gap-4 mix-blend-difference transition-opacity duration-700 xl:flex",
+        "fixed top-1/2 left-5 z-30 hidden -translate-y-1/2 flex-col gap-4 transition-opacity duration-700 xl:flex",
         active ? "opacity-100" : "pointer-events-none opacity-0",
       )}
     >
       {chapters.map((c, i) => {
         const on = c.id === active;
+        const light = active === "kubbe"; // the white Kubbe stage needs dark marks
         return (
           <a key={c.id} href={`#${c.id}`} className="group flex items-center gap-3">
-            <span className={cn("block h-px transition-all duration-500", on ? "w-10 bg-[#c8a46a]" : "w-4 bg-white/30 group-hover:w-6")} />
+            <span className={cn("block h-px transition-all duration-500", on ? "w-10 bg-[#c8a46a]" : cn("w-4 group-hover:w-6", light ? "bg-black/30" : "bg-white/30"))} />
             <span
               className={cn(
                 "text-[10px] tracking-[0.28em] whitespace-nowrap uppercase transition-all duration-500",
-                on ? "text-white opacity-100" : "text-white/60 opacity-0 group-hover:opacity-100",
+                on ? (light ? "text-[#141414] opacity-100" : "text-white opacity-100") : cn("opacity-0 group-hover:opacity-100", light ? "text-black/60" : "text-white/60"),
               )}
             >
               0{i + 1} · {c.label}

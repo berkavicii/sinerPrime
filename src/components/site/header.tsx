@@ -44,7 +44,7 @@ export function Header({ lang }: { lang: Locale }) {
         <div
           className={cn(
             "gutter flex h-16 items-center justify-between border-b transition-colors duration-700 sm:h-[72px]",
-            scrolled || open ? "border-line bg-night/70 backdrop-blur-xl" : "border-transparent",
+            scrolled || open ? "border-line bg-night/85 backdrop-blur-md" : "border-transparent",
           )}
         >
           <div className="flex items-center gap-3 sm:gap-5">
