@@ -42,8 +42,11 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
         <Intro />
         <Header lang={lang} />
         <Sidebar lang={lang} />
-        <main>{children}</main>
-        <Footer lang={lang} />
+        {/* on desktop the page starts after the ghost rail's 6rem column, so text never runs under it */}
+        <div className="lg:pl-24">
+          <main>{children}</main>
+          <Footer lang={lang} />
+        </div>
         <ToTop lang={lang} />
       </body>
     </html>
