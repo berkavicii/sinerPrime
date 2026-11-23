@@ -1644,7 +1644,7 @@ export const chapters: Chapter[] = [
                 "a": "Üreticinin belirttiği nominal hacim değeridir. Gerçek uygulama kapasitesi; havalandırma, tavan yüksekliği, mekân geometrisi, hava akışı ve hedeflenen yoğunluğa bağlıdır."
               },
               {
-                "q": "000 ml kapasiteli bir cihaz daha uzun süre mi çalışır?",
+                "q": "1.000 ml kapasiteli bir cihaz daha uzun süre mi çalışır?",
                 "a": "Daha büyük hazne daha fazla esans depolayabilir. Ancak çalışma süresi yalnızca kapasiteye bağlı değildir. Esans tüketim hızı, çalışma programı ve yoğunluk ayarı belirleyicidir."
               },
               {

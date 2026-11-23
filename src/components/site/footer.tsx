@@ -60,7 +60,7 @@ export function Footer({ lang }: { lang: Locale }) {
         </p>
       </div>
 
-      <div className="gutter relative flex flex-col items-center justify-between gap-3 border-t border-line bg-night-2 py-6 text-[12px] text-muted sm:flex-row">
+      <div className="gutter relative flex flex-col items-center justify-between gap-3 border-t border-line bg-night-2 pt-6 pb-20 text-[12px] text-muted sm:flex-row sm:pb-6 sm:pr-24">
         <span>
           © {new Date().getFullYear()} Siner Prime · {c.footer.rights}
         </span>

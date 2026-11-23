@@ -40,7 +40,7 @@ export function ProjectTabs({
       <span id="oteller" className="absolute -top-20" aria-hidden />
       <span id="kurumsal" className="absolute -top-20" aria-hidden />
 
-      <div className="border-b border-line bg-night/80 backdrop-blur-xl lg:sticky lg:top-[72px] lg:z-20">
+      <div className="border-b border-line bg-night/80 backdrop-blur-xl lg:sticky lg:top-0 lg:z-20">
         <div className="gutter mx-auto flex max-w-[1600px] gap-2 py-3" role="tablist">
           {tabs.map((t) => (
             <button

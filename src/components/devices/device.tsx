@@ -32,7 +32,7 @@ export function DeviceChapter({ lang, index }: { lang: Locale; index: number }) 
               className="absolute inset-0 m-auto h-full w-full object-contain mix-blend-multiply"
             />
           </AnimatePresence>
-          <span className="display pointer-events-none absolute bottom-4 left-6 text-[clamp(5rem,12vw,12rem)] leading-none text-night/[0.06]">
+          <span className="display pointer-events-none absolute bottom-4 left-6 lg:left-28 text-[clamp(5rem,12vw,12rem)] leading-none text-night/[0.06]">
             0{index + 1}
           </span>
           {hasVariant && (

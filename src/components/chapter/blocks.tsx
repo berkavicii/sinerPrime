@@ -84,7 +84,8 @@ function BlockView({ block: b, lang, compact, first }: { block: Block; lang: Loc
     case "table":
       return (
         <div className="-mx-4 overflow-x-auto px-4">
-          <table className="w-full min-w-[420px] border-collapse text-left text-[14px]">
+          {/* two-column spec tables fit a phone as they are; wider ones scroll sideways */}
+          <table className={cn("w-full border-collapse text-left text-[14px]", b.head.length > 2 && "min-w-[420px]")}>
             <thead>
               <tr>
                 {b.head.map((h, i) => (

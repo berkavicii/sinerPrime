@@ -84,7 +84,7 @@ export default async function KubbePage({ params }: PageProps<"/[lang]/kubbe">) 
       </section>
 
       {/* why + places */}
-      <section className="gutter mx-auto grid max-w-[1600px] gap-20 py-20 sm:py-32 lg:grid-cols-12 lg:py-44">
+      <section className="gutter mx-auto grid max-w-[1600px] gap-20 py-20 sm:py-32 lg:grid-cols-12 lg:gap-x-8 lg:py-44">
         <div className="lg:col-span-6">
           <p className="eyebrow">{k.why.eyebrow}</p>
           <ul className="mt-8">

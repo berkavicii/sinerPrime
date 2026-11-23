@@ -23,7 +23,7 @@ export function ToTop({ lang }: { lang: Locale }) {
       aria-label={common[lang].toTop}
       tabIndex={shown ? 0 : -1}
       className={cn(
-        "group fixed right-5 bottom-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-night/70 text-gold-hi backdrop-blur-md transition-all duration-500 hover:border-gold hover:bg-gold hover:text-night sm:right-8 sm:bottom-8",
+        "group fixed right-5 bottom-5 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-night/70 text-gold-hi backdrop-blur-md transition-all duration-500 hover:border-gold hover:bg-gold hover:text-night sm:right-8 sm:bottom-8",
         shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0",
       )}
     >

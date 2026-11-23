@@ -118,6 +118,8 @@ export const smokeMaterial = () =>
     `,
   });
 
+const labelWidths = new WeakMap<HTMLElement, number>();
+
 /** Moves DOM labels over the canvas to follow 3D anchors (drei's Html portals throw on route changes). */
 export function projectLabels(
   labelEls: (HTMLElement | null)[] | undefined,
@@ -127,12 +129,24 @@ export function projectLabels(
   opacity: number,
   v: THREE.Vector3,
 ) {
+  // keep every label on screen, and clear of the desktop menu rail on the left
+  const minX = size.width >= 1024 ? 104 : 16;
+  const maxX = size.width - 16;
   labelEls?.forEach((el, i) => {
     const a = anchors[i];
     if (!el || !a) return;
     v.setFromMatrixPosition(a.matrixWorld).project(camera);
-    const x = ((v.x + 1) / 2) * size.width;
+    let x = ((v.x + 1) / 2) * size.width;
     const y = ((1 - v.y) / 2) * size.height;
+    const inner = el.firstElementChild as HTMLElement | null;
+    if (inner) {
+      let w = labelWidths.get(inner);
+      // measured once it is laid out (labels are hidden on phones, where they report 0)
+      if (!w) labelWidths.set(inner, (w = inner.offsetWidth));
+      // left-side labels hang to the left of their anchor, right-side ones to the right
+      if (inner.classList.contains("-translate-x-full")) x = Math.min(Math.max(x, minX + w), maxX);
+      else x = Math.max(Math.min(x, maxX - w), minX);
+    }
     el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
     el.style.opacity = String(opacity);
   });

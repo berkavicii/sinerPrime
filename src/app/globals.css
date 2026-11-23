@@ -115,6 +115,12 @@ body {
   .gutter {
     padding-inline: clamp(1rem, 4vw, 3.5rem);
   }
+  /* on desktop the ghost rail floats over the left edge: pictures may run under it, text starts after it */
+  @media (width >= 64rem) {
+    .gutter {
+      padding-left: max(6.5rem, clamp(1rem, 4vw, 3.5rem));
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

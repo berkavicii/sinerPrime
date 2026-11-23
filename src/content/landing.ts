@@ -96,7 +96,7 @@ const tr = {
     story: "Parça parça izleyin",
   },
   refs: {
-    eyebrow: "07 · Referanslar",
+    eyebrow: "Referanslar",
   },
 };
 
@@ -186,7 +186,7 @@ const en: typeof tr = {
     story: "Watch it come apart",
   },
   refs: {
-    eyebrow: "07 · Clients",
+    eyebrow: "Clients",
   },
 };
 
