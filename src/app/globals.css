@@ -145,3 +145,15 @@ body {
 .theme-stone .text-gold-foil {
   background-image: linear-gradient(176deg, #a07a43 0%, #7a5a2c 55%, #b48b52 100%);
 }
+
+/* slow drift on chapter hero pictures */
+@keyframes prime-drift {
+  from { transform: scale(1.08) translate3d(1.5%, 0, 0); }
+  to { transform: scale(1) translate3d(0, 0, 0); }
+}
+.prime-drift {
+  animation: prime-drift 18s var(--ease-silk) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .prime-drift { animation: none; }
+}
