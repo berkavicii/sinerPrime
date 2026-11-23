@@ -5,8 +5,10 @@ import { display, sans } from "@/lib/fonts";
 import { isLocale, localeParams } from "@/lib/i18n";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { Sidebar } from "@/components/site/sidebar";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { Intro } from "@/components/site/intro";
+import { ToTop } from "@/components/site/to-top";
 
 export const dynamicParams = false;
 export const generateStaticParams = localeParams;
@@ -35,11 +37,14 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
   return (
     <html lang={lang} className={`${display.variable} ${sans.variable}`}>
       <body className="grain min-h-dvh">
+        <div id="top" />
         <SmoothScroll />
         <Intro />
         <Header lang={lang} />
+        <Sidebar lang={lang} />
         <main>{children}</main>
         <Footer lang={lang} />
+        <ToTop lang={lang} />
       </body>
     </html>
   );

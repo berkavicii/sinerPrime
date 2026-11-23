@@ -84,6 +84,9 @@ export function DeviceChapter({ lang, index }: { lang: Locale; index: number }) 
               </div>
             ))}
           </dl>
+          {device.specs.some(([, v]) => v.endsWith("*")) && (
+            <p className="mt-3 text-[12px] leading-[1.6] text-muted">{d.specLabels.note}</p>
+          )}
         </FadeIn>
       </div>
     </section>

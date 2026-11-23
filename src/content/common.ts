@@ -1,18 +1,39 @@
 import type { Locale } from "@/lib/i18n";
 
+export type NavItem = { label: string; path: string; children?: { label: string; path: string }[] };
+
 export const common = {
   tr: {
     nav: [
-      { label: "Biz kimiz", path: "#biz" },
-      { label: "Projeler", path: "projeler" },
-      { label: "Koku makineleri", path: "cihazlar" },
-      { label: "Buhurdanlıklar", path: "urunler" },
-      { label: "Referanslar", path: "referanslar" },
-    ],
+      { label: "Felsefemiz", path: "felsefemiz" },
+      { label: "Koku", path: "koku" },
+      { label: "Koku Tasarımı", path: "koku-tasarimi" },
+      { label: "Koku Teknolojileri", path: "koku-teknolojileri", children: [{ label: "Koku makineleri", path: "cihazlar" }] },
+      {
+        label: "Tasarım ve Koleksiyonlar",
+        path: "tasarim-ve-koleksiyonlar",
+        children: [
+          { label: "Buhurdanlıklar", path: "urunler" },
+          { label: "Kubbe", path: "kubbe" },
+          { label: "ONIX", path: "onix" },
+        ],
+      },
+      {
+        label: "Proje Geliştirme ve Uygulama",
+        path: "proje-gelistirme",
+        children: [
+          { label: "Oteller ve kurumlar", path: "projeler" },
+          { label: "Referanslar", path: "referanslar" },
+        ],
+      },
+      { label: "Sektörel Çözümler", path: "sektorel-cozumler" },
+    ] as NavItem[],
     quote: "Teklif alın",
     contact: "İletişim",
     menu: "Menü",
     close: "Kapat",
+    toTop: "Başa dön",
+    open: "Aç",
     tagline: "Scent · Design · Experience",
     footer: {
       lead: "Markanız da hatırlansın.",
@@ -29,20 +50,43 @@ export const common = {
     whatsapp: "WhatsApp ile yazın",
     mail: "E-posta gönderin",
     back: "Ana sayfa",
+    onThisPage: "Bu sayfada",
+    prev: "Önceki",
+    next: "Sonraki",
+    explore: "Siner Prime'ı keşfedin",
     scroll: "Kaydırın",
   },
   en: {
     nav: [
-      { label: "Who we are", path: "#biz" },
-      { label: "Projects", path: "projeler" },
-      { label: "Scent machines", path: "cihazlar" },
-      { label: "Incense burners", path: "urunler" },
-      { label: "Clients", path: "referanslar" },
-    ],
+      { label: "Our Philosophy", path: "felsefemiz" },
+      { label: "Scent", path: "koku" },
+      { label: "Scent Design", path: "koku-tasarimi" },
+      { label: "Scent Technologies", path: "koku-teknolojileri", children: [{ label: "Scent machines", path: "cihazlar" }] },
+      {
+        label: "Design & Collections",
+        path: "tasarim-ve-koleksiyonlar",
+        children: [
+          { label: "Incense burners", path: "urunler" },
+          { label: "Kubbe", path: "kubbe" },
+          { label: "ONIX", path: "onix" },
+        ],
+      },
+      {
+        label: "Project Development",
+        path: "proje-gelistirme",
+        children: [
+          { label: "Hotels & corporate", path: "projeler" },
+          { label: "Clients", path: "referanslar" },
+        ],
+      },
+      { label: "Sector Solutions", path: "sektorel-cozumler" },
+    ] as NavItem[],
     quote: "Request a quote",
     contact: "Contact",
     menu: "Menu",
     close: "Close",
+    toTop: "Back to top",
+    open: "Open",
     tagline: "Scent · Design · Experience",
     footer: {
       lead: "Let your brand be remembered.",
@@ -59,6 +103,10 @@ export const common = {
     whatsapp: "Message on WhatsApp",
     mail: "Send an email",
     back: "Home",
+    onThisPage: "On this page",
+    prev: "Previous",
+    next: "Next",
+    explore: "Explore Siner Prime",
     scroll: "Scroll",
   },
 } satisfies Record<Locale, unknown>;

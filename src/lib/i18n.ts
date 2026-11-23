@@ -2,6 +2,9 @@ export const locales = ["tr", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "tr";
 
+/** EN stays built but hidden until the Turkish copy from "çatı" settles and gets translated. */
+export const showLocaleSwitch = false;
+
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
