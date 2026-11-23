@@ -18,14 +18,16 @@ export function Sidebar({ lang }: { lang: Locale }) {
   return (
     <nav
       aria-label={c.menu}
-      className="group/rail fixed top-1/2 left-0 z-30 hidden -translate-y-1/2 py-6 pr-10 pl-5 lg:block"
+      className="group/rail pointer-events-none fixed top-1/2 left-0 z-30 hidden -translate-y-1/2 py-6 pr-10 pl-5 lg:block"
     >
+      {/* the hidden names still take up room, so only the hairlines and numbers catch the mouse
+          until the rail is open; otherwise the invisible labels would block clicks on the page */}
       {/* soft veil so labels stay readable over the page while the rail is open */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-[22rem] bg-gradient-to-r from-night via-night/85 to-transparent opacity-0 transition-opacity duration-500 group-hover/rail:opacity-100 group-focus-within/rail:opacity-100"
       />
-      <ol className="flex flex-col gap-4">
+      <ol className="pointer-events-none flex flex-col gap-4 group-hover/rail:pointer-events-auto group-focus-within/rail:pointer-events-auto">
         {c.nav.map((item, i) => {
           const on = at(item.path);
           const childOn = item.children?.some((ch) => at(ch.path)) ?? false;
@@ -38,7 +40,7 @@ export function Sidebar({ lang }: { lang: Locale }) {
                 className="group flex items-center gap-3"
               >
                 {/* fixed-width slot so numbers and names line up while the hairline grows inside it */}
-                <span className="flex w-10 shrink-0 justify-end">
+                <span className="pointer-events-auto flex h-4 w-10 shrink-0 items-center justify-end">
                   <span
                     className={cn(
                       "block h-px transition-all duration-500",
@@ -49,20 +51,17 @@ export function Sidebar({ lang }: { lang: Locale }) {
                 {/* the number always shows, faintly, so the rail reads as a contents list at a glance */}
                 <span
                   className={cn(
-                    "w-5 shrink-0 text-[10px] tracking-[0.2em] tabular-nums transition-colors duration-500",
+                    "pointer-events-auto w-5 shrink-0 text-[10px] tracking-[0.2em] tabular-nums transition-colors duration-500",
                     here ? "text-gold" : "text-white/35 group-hover:text-white/80",
                   )}
                 >
                   0{i + 1}
                 </span>
-                {/* the name stays hidden until the rail is hovered; the current one also shows on wide screens,
-                    where there is room beside the page */}
+                {/* names stay hidden until the rail is hovered; the gold line and number mark the current chapter */}
                 <span
                   className={cn(
-                    "-ml-1 text-[10px] tracking-[0.28em] whitespace-nowrap uppercase transition-all duration-500",
-                    here
-                      ? "text-ink opacity-0 min-[1700px]:opacity-100 group-hover/rail:opacity-100 group-focus-within/rail:opacity-100"
-                      : "text-white/60 opacity-0 group-hover:text-white group-hover/rail:opacity-100 group-focus-within/rail:opacity-100",
+                    "-ml-1 text-[10px] tracking-[0.28em] whitespace-nowrap uppercase opacity-0 transition-all duration-500 group-hover/rail:opacity-100 group-focus-within/rail:opacity-100",
+                    here ? "text-ink" : "text-white/60 group-hover:text-white",
                   )}
                 >
                   {item.label}
