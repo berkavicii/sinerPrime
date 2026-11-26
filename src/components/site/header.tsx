@@ -31,7 +31,10 @@ export function Header({ lang }: { lang: Locale }) {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const switchTo = (l: Locale) => pathname.replace(/^\/(tr|en)(?=\/|$)/, `/${l}`) || href(l);
+  const onHome =
+    pathname === href(lang) || pathname === href(lang).slice(0, -1);
+  const switchTo = (l: Locale) =>
+    pathname.replace(/^\/(tr|en)(?=\/|$)/, `/${l}`) || href(l);
 
   return (
     <>
@@ -44,7 +47,9 @@ export function Header({ lang }: { lang: Locale }) {
         <div
           className={cn(
             "gutter flex h-16 items-center justify-between border-b transition-colors duration-700 sm:h-[72px]",
-            scrolled || open ? "border-line bg-night/85 backdrop-blur-md" : "border-transparent",
+            scrolled || open
+              ? "border-line bg-night/85 backdrop-blur-md"
+              : "border-transparent",
           )}
         >
           <div className="flex items-center gap-3 sm:gap-5">
@@ -54,34 +59,69 @@ export function Header({ lang }: { lang: Locale }) {
               aria-label={open ? c.close : c.menu}
               aria-expanded={open}
             >
-              <span className={cn("absolute h-px w-6 bg-ink transition-transform duration-500", open ? "rotate-45" : "-translate-y-[7px]")} />
-              <span className={cn("absolute h-px bg-ink transition-all duration-500", open ? "w-0 opacity-0" : "w-6 group-hover:w-4")} />
-              <span className={cn("absolute h-px w-6 bg-ink transition-transform duration-500", open ? "-rotate-45" : "translate-y-[7px]")} />
+              <span
+                className={cn(
+                  "absolute h-px w-6 bg-ink transition-transform duration-500",
+                  open ? "rotate-45" : "-translate-y-[7px]",
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute h-px bg-ink transition-all duration-500",
+                  open ? "w-0 opacity-0" : "w-6 group-hover:w-4",
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute h-px w-6 bg-ink transition-transform duration-500",
+                  open ? "-rotate-45" : "translate-y-[7px]",
+                )}
+              />
             </button>
-            <Link href={href(lang)} className="group flex items-center gap-3" aria-label="Siner Prime">
+            <Link
+              href={href(lang)}
+              className="group flex items-center gap-3"
+              aria-label="Siner Prime"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/deer.png" alt="" className="h-8 w-auto transition-transform duration-700 group-hover:-rotate-6" />
+              <img
+                src="/brand/deer.png"
+                alt=""
+                className="h-8 w-auto transition-transform duration-700 group-hover:-rotate-6"
+              />
               <span className="flex flex-col leading-none">
-                <span className="font-display text-[17px] tracking-[0.42em] text-ink">SINER</span>
-                <span lang="en" className="mt-1 text-[9px] tracking-[0.5em] text-gold uppercase">Prime</span>
+                <span className="font-display text-[17px] tracking-[0.42em] text-ink">
+                  SINER
+                </span>
+                <span
+                  lang="en"
+                  className="mt-1 text-[9px] tracking-[0.5em] text-gold uppercase"
+                >
+                  Prime
+                </span>
               </span>
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
-            {showLocaleSwitch && <div className="hidden items-center gap-1 text-[11px] tracking-[0.2em] sm:flex">
-              {locales.map((l, i) => (
-                <span key={l} className="flex items-center gap-1">
-                  {i > 0 && <span className="text-muted">/</span>}
-                  <Link
-                    href={switchTo(l)}
-                    className={cn("uppercase transition-colors", l === lang ? "text-gold" : "text-muted hover:text-ink")}
-                  >
-                    {l}
-                  </Link>
-                </span>
-              ))}
-            </div>}
+            {showLocaleSwitch && (
+              <div className="hidden items-center gap-1 text-[11px] tracking-[0.2em] sm:flex">
+                {locales.map((l, i) => (
+                  <span key={l} className="flex items-center gap-1">
+                    {i > 0 && <span className="text-muted">/</span>}
+                    <Link
+                      href={switchTo(l)}
+                      className={cn(
+                        "uppercase transition-colors",
+                        l === lang ? "text-gold" : "text-muted hover:text-ink",
+                      )}
+                    >
+                      {l}
+                    </Link>
+                  </span>
+                ))}
+              </div>
+            )}
             <a
               href="#iletisim"
               onClick={() => setOpen(false)}
@@ -108,19 +148,31 @@ export function Header({ lang }: { lang: Locale }) {
                   key={item.path}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 + i * 0.06, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: 0.25 + i * 0.06,
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  <Link
-                    href={href(lang, item.path)}
+                  {/* the menu walks through the home presentation; the full chapter sits underneath */}
+                  <a
+                    href={
+                      onHome ? `#${item.path}` : href(lang, `#${item.path}`)
+                    }
                     onClick={() => setOpen(false)}
                     className="display flex items-baseline gap-4 py-1 text-[clamp(1.9rem,7vw,3rem)] leading-[1.05] text-ink transition-colors hover:text-gold-hi"
                   >
-                    <span className="w-6 shrink-0 font-sans text-[11px] tracking-[0.3em] text-gold">0{i + 1}</span>
+                    <span className="w-6 shrink-0 font-sans text-[11px] tracking-[0.3em] text-gold">
+                      0{i + 1}
+                    </span>
                     {item.label}
-                  </Link>
-                  {item.children && (
+                  </a>
+                  {
                     <div className="mb-2 ml-10 flex flex-wrap gap-x-5 gap-y-1">
-                      {item.children.map((ch) => (
+                      {[
+                        { label: c.fullChapter, path: item.path },
+                        ...(item.children ?? []),
+                      ].map((ch) => (
                         <Link
                           key={ch.path}
                           href={href(lang, ch.path)}
@@ -131,20 +183,26 @@ export function Header({ lang }: { lang: Locale }) {
                         </Link>
                       ))}
                     </div>
-                  )}
+                  }
                 </motion.div>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 + c.nav.length * 0.06, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: 0.25 + c.nav.length * 0.06,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 <a
                   href="#iletisim"
                   onClick={() => setOpen(false)}
                   className="display text-gold-foil flex items-baseline gap-4 py-1 text-[clamp(1.9rem,7vw,3rem)] italic"
                 >
-                  <span className="w-6 shrink-0 font-sans text-[11px] tracking-[0.3em] text-gold not-italic">0{c.nav.length + 1}</span>
+                  <span className="w-6 shrink-0 font-sans text-[11px] tracking-[0.3em] text-gold not-italic">
+                    0{c.nav.length + 1}
+                  </span>
                   {c.contact}
                 </a>
               </motion.div>
@@ -154,13 +212,19 @@ export function Header({ lang }: { lang: Locale }) {
                 <a href={contact.phoneHref}>{contact.phone}</a>
                 <a href={`mailto:${contact.email}`}>{contact.email}</a>
               </div>
-              {showLocaleSwitch && <div className="flex gap-3 text-[12px] tracking-[0.2em] uppercase">
-                {locales.map((l) => (
-                  <Link key={l} href={switchTo(l)} className={l === lang ? "text-gold" : "text-muted"}>
-                    {l}
-                  </Link>
-                ))}
-              </div>}
+              {showLocaleSwitch && (
+                <div className="flex gap-3 text-[12px] tracking-[0.2em] uppercase">
+                  {locales.map((l) => (
+                    <Link
+                      key={l}
+                      href={switchTo(l)}
+                      className={l === lang ? "text-gold" : "text-muted"}
+                    >
+                      {l}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}

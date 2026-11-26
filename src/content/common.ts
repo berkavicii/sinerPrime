@@ -55,6 +55,7 @@ export const common = {
     next: "Sonraki",
     explore: "Siner Prime'ı keşfedin",
     scroll: "Kaydırın",
+    fullChapter: "Bölümün tamamı",
   },
   en: {
     nav: [
@@ -108,6 +109,7 @@ export const common = {
     next: "Next",
     explore: "Explore Siner Prime",
     scroll: "Scroll",
+    fullChapter: "Full chapter",
   },
 } satisfies Record<Locale, unknown>;
 

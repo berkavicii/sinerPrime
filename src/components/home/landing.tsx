@@ -109,7 +109,7 @@ export function Intro({ lang }: { lang: Locale }) {
             {c.lead}
           </motion.p>
           <motion.a
-            href="#bolumler"
+            href="#felsefemiz"
             className="flex items-center gap-4 text-[11px] tracking-[0.3em] text-muted uppercase transition-colors hover:text-ink"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

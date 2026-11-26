@@ -3,6 +3,7 @@
 import { useMemo, useRef, type RefObject } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { ContactShadows } from "@react-three/drei";
 import type { MotionValue } from "motion/react";
 import { Onix } from "./onix";
 import { Kubbe } from "./kubbe";
@@ -71,6 +72,8 @@ function Rig({ model, progress, labelEls }: { model: StoryModel; progress: Motio
 
   return (
     <group ref={group}>
+      {/* the shadow travels with the product instead of staying at the centre of the stage */}
+      <ContactShadows position={[0, 0, 0]} scale={model === "kubbe" ? 22 : 34} blur={2.4} far={12} opacity={0.62} resolution={512} />
       {model === "onix" ? (
         <Onix design={design} explode={explode} smoke={smoke} labelEls={labelEls} />
       ) : (
@@ -99,7 +102,7 @@ export default function StoryCanvas({
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       camera={{ position: [0, 8, 34], fov: 28, near: 0.5, far: 200 }}
     >
-      <StageLights />
+      <StageLights shadow={false} glossy={model === "kubbe"} />
       <Rig model={model} progress={progress} labelEls={labelEls} />
     </Canvas>
   );

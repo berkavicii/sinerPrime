@@ -49,6 +49,69 @@ const HOLE_GLSL = /* glsl */ `
   }
 `;
 
+/** A soft, low-frequency normal map: the slight unevenness of a glaze poured by hand. */
+function glazeRipple() {
+  const size = 128;
+  const data = new Uint8Array(size * size * 4);
+  // whole periods across the tile, so it repeats without seams
+  const f = (Math.PI * 2) / size;
+  const h = (x: number, y: number) =>
+    Math.sin(x * f * 3 + Math.sin(y * f * 2) * 1.5) * 0.6 + Math.sin(y * f * 4 + Math.sin(x * f * 2) * 1.2) * 0.4;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const dx = h(x + 1, y) - h(x - 1, y);
+      const dy = h(x, y + 1) - h(x, y - 1);
+      const i = (y * size + x) * 4;
+      data[i] = 128 + dx * 60;
+      data[i + 1] = 128 + dy * 60;
+      data[i + 2] = 255;
+      data[i + 3] = 255;
+    }
+  }
+  const t = new THREE.DataTexture(data, size, size);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  t.repeat.set(3, 2);
+  t.needsUpdate = true;
+  return t;
+}
+
+/** Same placement as `domeHole`, in JS: one entry per perforation, with its outward surface normal. */
+function domeRadiusJS(y: number) {
+  if (y < D.Y0) return THREE.MathUtils.lerp(D.R, D.RS, y / D.Y0);
+  const s = THREE.MathUtils.clamp((y - D.Y0) / D.B, 0, 1);
+  const sn = Math.pow(s, D.N / 2);
+  const cs = Math.sqrt(Math.max(1 - sn * sn, 0));
+  return D.RC + (D.RS - D.RC) * Math.pow(cs, 2 / D.N);
+}
+
+function holeWalls() {
+  const m = new THREE.Matrix4();
+  const q = new THREE.Quaternion();
+  const up = new THREE.Vector3(0, 1, 0);
+  const n = new THREE.Vector3();
+  const p = new THREE.Vector3();
+  const one = new THREE.Vector3(1, 1, 1);
+  const out: THREE.Matrix4[] = [];
+  for (let row = 0; ; row++) {
+    const yc = 0.55 + row * 0.64;
+    if (yc > 5.05) break;
+    const r = domeRadiusJS(yc);
+    const count = Math.floor((Math.PI * 2 * r) / 0.86);
+    // slope of the profile, for the normal on the curved shoulder
+    const drdy = (domeRadiusJS(yc + 0.01) - domeRadiusJS(yc - 0.01)) / 0.02;
+    for (let k = 0; k < count; k++) {
+      const th = ((k - (row % 2) * 0.5) / count) * Math.PI * 2;
+      const c = Math.cos(th);
+      const s = Math.sin(th);
+      n.set(c, -drdy, s).normalize();
+      p.set(r * c, yc, r * s).addScaledVector(n, -D.WALL / 2);
+      q.setFromUnitVectors(up, n);
+      out.push(m.compose(p, q, one).clone());
+    }
+  }
+  return out;
+}
+
 function withHoles<T extends THREE.Material>(mat: T) {
   mat.onBeforeCompile = (shader) => {
     shader.vertexShader = shader.vertexShader
@@ -121,6 +184,8 @@ export function Kubbe({ explode, smoke, labelEls }: Props) {
         ...inner.slice().reverse(),
         [D.R - D.WALL, 0],
       ], 160),
+      // the wall of each perforation, so the holes read as cut through thick ceramic
+      hole: new THREE.CylinderGeometry(0.164, 0.164, D.WALL + 0.02, 14, 1, true),
       liquid: new THREE.CircleGeometry(1.6, 48).rotateX(-Math.PI / 2),
       cup: lathe([[0, 0], [1.9, 0], [1.96, 0.05], [1.96, 1.0], [2.01, 1.06]], 64),
       wax: new THREE.CylinderGeometry(1.9, 1.9, 0.9, 64),
@@ -128,26 +193,28 @@ export function Kubbe({ explode, smoke, labelEls }: Props) {
     };
   }, []);
 
-  const mats = useMemo(
-    () => ({
-      glaze: new THREE.MeshPhysicalMaterial({
-        color: "#0b0b0c",
-        roughness: 0.16,
+  const walls = useMemo(() => holeWalls(), []);
+  const mats = useMemo(() => {
+    // thick black glaze: a dark body under a mirror-like coat, with the faint ripple of a hand-dipped glaze
+    const ripple = glazeRipple();
+    const glaze = () =>
+      new THREE.MeshPhysicalMaterial({
+        color: "#060607",
+        roughness: 0.3,
+        metalness: 0,
         clearcoat: 1,
-        clearcoatRoughness: 0.05,
+        clearcoatRoughness: 0.03,
+        clearcoatNormalMap: ripple,
+        clearcoatNormalScale: new THREE.Vector2(0.06, 0.06),
+        envMapIntensity: 1.5,
         side: THREE.DoubleSide,
-      }),
-      domeOuter: withHoles(
-        new THREE.MeshPhysicalMaterial({
-          color: "#0b0b0c",
-          roughness: 0.16,
-          clearcoat: 1,
-          clearcoatRoughness: 0.05,
-          side: THREE.DoubleSide,
-        }),
-      ),
-      // the inside is glazed too, but a touch warmer so the candle reads through the holes
-      domeInner: withHoles(new THREE.MeshStandardMaterial({ color: "#2a1f17", roughness: 0.38, side: THREE.DoubleSide })),
+      });
+    return {
+      glaze: glaze(),
+      domeOuter: withHoles(glaze()),
+      // inside the dome the glaze is thinner and matte, so the holes read dark until the candle lights them
+      domeInner: withHoles(new THREE.MeshStandardMaterial({ color: "#14100d", roughness: 0.55, side: THREE.DoubleSide })),
+      holeWall: new THREE.MeshStandardMaterial({ color: "#0c0a09", roughness: 0.4, emissive: "#3a1806", emissiveIntensity: 0.2, side: THREE.DoubleSide }),
       foot: new THREE.MeshStandardMaterial({ color: "#8f877b", roughness: 0.95 }),
       liquid: new THREE.MeshPhysicalMaterial({
         color: "#b9772a",
@@ -164,9 +231,9 @@ export function Kubbe({ explode, smoke, labelEls }: Props) {
       glow: glowMaterial(),
       inside: glowMaterial(),
       smoke: smokeMaterial(),
-    }),
-    [],
-  );
+      ripple,
+    };
+  }, []);
 
   useEffect(
     () => () => {
@@ -227,6 +294,15 @@ export function Kubbe({ explode, smoke, labelEls }: Props) {
       <group ref={dome} position={[0, DOME_Y, 0]}>
         <mesh geometry={geo.domeOuter} material={mats.domeOuter} castShadow />
         <mesh geometry={geo.domeInner} material={mats.domeInner} />
+        <instancedMesh
+          args={[geo.hole, mats.holeWall, walls.length]}
+          ref={(m) => {
+            if (!m || m.userData.placed) return;
+            walls.forEach((w, i) => m.setMatrixAt(i, w));
+            m.instanceMatrix.needsUpdate = true;
+            m.userData.placed = true;
+          }}
+        />
         <mesh geometry={geo.liquid} material={mats.liquid} position={[0, 4.36, 0]} />
         <object3D ref={anchor(1)} position={[4.75, 2.6, 0]} />
         <object3D ref={anchor(2)} position={[2.2, D.Y0 + D.B + 0.2, 0]} />
