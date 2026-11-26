@@ -134,7 +134,33 @@ const burnersTr = {
   pick: [
     { id: "onix", name: "ONIX", kind: "Kurumsal buhurdanlık", image: "/onix/aselsan-candle.webp" },
     { id: "kubbe", name: "Kubbe", kind: "Seramik buhurdanlık", image: "/kubbe/hero.webp" },
+    { id: "set", name: "Deneyim Seti", kind: "Buhurdanlık ve 21 yağ", image: "/burners/set-office.webp" },
   ],
+  set: {
+    eyebrow: "Deneyim seti",
+    title: ["21 koku,", "tek bir ritüel."],
+    lead: "Seramik buhurdanlık, 21 farklı buhurdanlık yağı ve masif gürgen ağacından bir stand, tek bir hediye kutusunda. Günün her anı için ayrı bir atmosfer seçebilmeniz için.",
+    facts: ["21 buhurdanlık yağı", "Tealight ile kullanılan seramik buhurdanlık", "Masif gürgen ağacından stand", "Hediye kutusu"],
+    main: { src: "/burners/set-office.webp", alt: "Ofis masasında gürgen stand, buhurdanlık ve hediye kutusu" },
+    detail: { src: "/burners/set-open.webp", alt: "Açık hediye kutusunda 21 buhurdanlık yağı" },
+  },
+  shop: {
+    eyebrow: "Sinershop",
+    title: "Evinize getirin.",
+    cta: "Sinershop'ta incele",
+    items: [
+      {
+        name: "Küçük Kubbe",
+        kind: "Seramik buhurdanlık",
+        href: "https://sinershop.com/siner-masali-seramik-buhurdanlik-ev-ve-ofis-icin-koku-yayici",
+      },
+      {
+        name: "21'li Deneyim Seti",
+        kind: "Buhurdanlık ve aroma yağı seti",
+        href: "https://sinershop.com/21li-yag-buhurdanlik-dekoratif-buhurdanlik-tea-light-mum-ile-kullanim-aromaterapi-buhurdanlik-yagi-ile-koku-yayma-ev-ofis-spa-icin-dekoratif-koku-urunleri",
+      },
+    ],
+  },
   more: {
     eyebrow: "Daha yakından",
     title: "Bir sonraki adım.",
@@ -156,7 +182,25 @@ const burnersEn: typeof burnersTr = {
   pick: [
     { id: "onix", name: "ONIX", kind: "Corporate incense burner", image: "/onix/aselsan-candle.webp" },
     { id: "kubbe", name: "Kubbe", kind: "Ceramic incense burner", image: "/kubbe/hero.webp" },
+    { id: "set", name: "Discovery Set", kind: "Burner and 21 oils", image: "/burners/set-office.webp" },
   ],
+  set: {
+    eyebrow: "Discovery set",
+    title: ["21 scents,", "one ritual."],
+    lead: "A ceramic burner, 21 burner oils and a solid hornbeam stand, together in one gift box. A different atmosphere for every part of the day.",
+    facts: ["21 burner oils", "Ceramic tealight burner", "Solid hornbeam stand", "Gift box"],
+    main: { src: "/burners/set-office.webp", alt: "Hornbeam stand, burner and gift box on an office desk" },
+    detail: { src: "/burners/set-open.webp", alt: "21 burner oils in the open gift box" },
+  },
+  shop: {
+    eyebrow: "Sinershop",
+    title: "Bring it home.",
+    cta: "View on Sinershop",
+    items: [
+      { ...burnersTr.shop.items[0], name: "Small Kubbe", kind: "Ceramic incense burner" },
+      { ...burnersTr.shop.items[1], name: "21-piece Discovery Set", kind: "Burner and aroma oil set" },
+    ],
+  },
   more: {
     eyebrow: "Closer",
     title: "The next step.",
