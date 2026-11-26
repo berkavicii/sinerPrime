@@ -411,30 +411,44 @@ export function TechScene({ lang, meta }: { lang: Locale; meta: SceneMeta }) {
     >
       <div className="gutter mx-auto max-w-[1600px] py-24 sm:py-32 lg:py-40">
         <Head meta={meta} title={c.title} lang={lang} />
-        <div className="mt-14 grid grid-cols-3 gap-2 sm:mt-20 sm:gap-4">
-          {c.devices.map((d, i) => (
-            <FadeIn key={d.id} delay={i * 0.08}>
-              <Link
-                href={href(lang, `cihazlar#${d.id}`)}
-                className="group block"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#ecebe8]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={d.image}
-                    alt={d.name}
-                    loading="lazy"
-                    className="h-full w-full object-contain p-4 mix-blend-multiply transition-transform duration-1000 ease-[var(--ease-silk)] group-hover:scale-105 sm:p-10"
-                  />
-                </div>
-                <p className="eyebrow mt-4 hidden sm:block">{d.kind}</p>
-                <h3 className="display mt-2 text-[clamp(1.1rem,2.2vw,2.2rem)] text-ink transition-colors group-hover:text-gold-hi">
-                  {d.name}
-                </h3>
-              </Link>
-            </FadeIn>
-          ))}
-        </div>
+        {/* one shot of the range; each machine names itself on hover (always on touch screens) and opens its page */}
+        <FadeIn className="mt-14 sm:mt-20">
+          <figure className="relative -mx-4 aspect-[1920/760] overflow-hidden sm:mx-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.stage.image} alt={c.stage.alt} loading="lazy" className="absolute inset-0 h-full w-full" />
+            {c.stage.spots.map((s, i) => {
+              const [l, t, w, h] = s.box;
+              return (
+                <Link
+                  key={i}
+                  href={href(lang, `cihazlar#${s.id}`)}
+                  aria-label={`${s.name}, ${s.kind}`}
+                  className="group/spot absolute"
+                  style={{ left: `${l}%`, top: `${t}%`, width: `${w}%`, height: `${h}%` }}
+                >
+                  <span className="pointer-events-none absolute -inset-[6%] rounded-sm bg-[radial-gradient(ellipse_at_center,rgba(232,201,150,0.16),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/spot:opacity-100" />
+                  <span
+                    className={cn(
+                      "pointer-events-none absolute flex translate-y-1 whitespace-nowrap opacity-0 transition-all duration-500 ease-[var(--ease-silk)] group-hover/spot:translate-y-0 group-hover/spot:opacity-100 group-focus-visible/spot:translate-y-0 group-focus-visible/spot:opacity-100 [@media(hover:none)]:translate-y-0 [@media(hover:none)]:opacity-100",
+                      s.side
+                        ? "top-[24%] left-full ml-[0.8vw] items-center gap-[0.8vw]"
+                        : "bottom-full left-1/2 mb-[0.6vw] -translate-x-1/2 flex-col items-center",
+                    )}
+                  >
+                    {s.side && <span className="block h-px w-[2.4vw] bg-gold/70" />}
+                    <span className={cn("flex flex-col", s.side ? "items-start" : "items-center")}>
+                      <span className="display text-[clamp(0.8rem,1.7vw,1.9rem)] leading-none text-ink">{s.name}</span>
+                      <span className="mt-[0.4vw] hidden text-[10px] tracking-[0.22em] text-gold-hi uppercase sm:block sm:text-[11px]">
+                        {s.kind}
+                      </span>
+                    </span>
+                    {!s.side && <span className="mt-[0.5vw] block h-[1.4vw] w-px bg-gold/70" />}
+                  </span>
+                </Link>
+              );
+            })}
+          </figure>
+        </FadeIn>
         <dl className="mt-14 grid grid-cols-2 gap-px border-y border-line bg-line sm:mt-20 lg:grid-cols-4">
           {c.facts.map((f, i) => (
             <FadeIn

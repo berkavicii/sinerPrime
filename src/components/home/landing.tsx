@@ -14,7 +14,6 @@ import { ButtonLink } from "@/components/ui/button";
 
 const ScentField = dynamic(() => import("@/components/three/scent-field"), { ssr: false });
 
-const silk = [0.22, 1, 0.36, 1] as const;
 
 /** Shared chapter heading: numbered eyebrow and a rising title. */
 function Heading({ eyebrow, title, className }: { eyebrow: string; title: string; className?: string }) {
@@ -55,7 +54,6 @@ export function Intro({ lang }: { lang: Locale }) {
   // stop the shader as soon as the hero is mostly scrolled away
   const inView = useInView(ref, { amount: 0.2 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   // let the smoke drift in as the intro curtain lifts
@@ -73,58 +71,32 @@ export function Intro({ lang }: { lang: Locale }) {
       <img
         src="/brand/deer.png"
         alt=""
-        className="pointer-events-none absolute top-[13vh] left-1/2 h-[36vh] w-auto -translate-x-1/2 opacity-[0.13] lg:top-1/2 lg:right-[8vw] lg:left-auto lg:h-[52vh] lg:translate-x-0 lg:-translate-y-1/2 lg:opacity-[0.07]"
+        className="pointer-events-none absolute top-1/2 left-1/2 h-[38vh] w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.13] lg:h-[50vh] lg:opacity-[0.1]"
       />
-      <motion.div style={{ y: copyY, opacity: copyOpacity }} className="gutter relative mx-auto w-full max-w-[1600px] pb-[12vh]">
-        <motion.p
-          lang="en"
-          className="eyebrow mb-6"
+      {/* the opening is only the smoke and the deer; the words stay for search engines and screen readers */}
+      <h1 className="sr-only">
+        {c.title.join(" ")} {c.lead}
+      </h1>
+      <motion.div
+        style={{ opacity: copyOpacity }}
+        className="gutter relative mx-auto flex w-full max-w-[1600px] justify-center pb-[8vh]"
+      >
+        <motion.a
+          href="#felsefemiz"
+          className="flex items-center gap-4 text-[11px] tracking-[0.3em] text-muted uppercase transition-colors hover:text-ink"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2.4, duration: 1 }}
+          transition={{ delay: 3.2, duration: 1 }}
         >
-          {c.eyebrow}
-        </motion.p>
-        <h1 className="display text-[clamp(3.2rem,10vw,11.5rem)] leading-[0.9] text-ink">
-          {c.title.map((line, i) => (
-            <span key={i} className="block overflow-hidden pb-[0.08em]">
-              <motion.span
-                className={i === 1 ? "text-gold-foil block italic" : "block"}
-                initial={{ y: "105%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1.4, ease: silk, delay: 2.35 + i * 0.14 }}
-              >
-                {line}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
-        <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <motion.p
-            className="max-w-lg text-[16px] leading-[1.75] text-ink-soft"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.9, duration: 1.2, ease: silk }}
-          >
-            {c.lead}
-          </motion.p>
-          <motion.a
-            href="#felsefemiz"
-            className="flex items-center gap-4 text-[11px] tracking-[0.3em] text-muted uppercase transition-colors hover:text-ink"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 3.2, duration: 1 }}
-          >
-            <span className="relative block h-12 w-px overflow-hidden bg-line">
-              <motion.span
-                className="absolute inset-x-0 top-0 h-1/2 bg-gold"
-                animate={{ y: ["-100%", "200%"] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </span>
-            {c.scroll}
-          </motion.a>
-        </div>
+          <span className="relative block h-12 w-px overflow-hidden bg-line">
+            <motion.span
+              className="absolute inset-x-0 top-0 h-1/2 bg-gold"
+              animate={{ y: ["-100%", "200%"] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </span>
+          {c.scroll}
+        </motion.a>
       </motion.div>
     </section>
   );

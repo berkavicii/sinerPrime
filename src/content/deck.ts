@@ -58,6 +58,16 @@ const tr = {
       { id: "minimal", name: "Minimal Line", kind: "Kompakt koku makinesi", image: "/devices/minimal-black.webp" },
       { id: "wall", name: "Extra-Wall", kind: "Prize takılan difüzör", image: "/devices/wall.webp" },
     ],
+    stage: {
+      image: "/devices/trio.webp",
+      alt: "Siyah ve beyaz Minimal Line arasında Siner Tower",
+      // box: left, top, width, height in % of the picture; the name lights up on hover, above the machine or beside it (side)
+      spots: [
+        { id: "minimal", name: "Minimal Line", kind: "Kompakt koku makinesi · Siyah", box: [21, 56, 15.5, 33] },
+        { id: "tower", name: "Siner Tower", kind: "Ayaklı nebülizasyon · 2000 m³", box: [46.5, 9, 7, 72], side: true },
+        { id: "minimal", name: "Minimal Line", kind: "Kompakt koku makinesi · Beyaz", box: [63.5, 56, 15.8, 34] },
+      ],
+    },
     facts: [
       { value: "Isısız", label: "Soğuk hava difüzyonu" },
       { value: "2000 m³", label: "Tek cihazla" },
@@ -148,6 +158,15 @@ const en: typeof tr = {
       { id: "minimal", name: "Minimal Line", kind: "Compact scent machine", image: "/devices/minimal-black.webp" },
       { id: "wall", name: "Extra-Wall", kind: "Plug-in diffuser", image: "/devices/wall.webp" },
     ],
+    stage: {
+      image: "/devices/trio.webp",
+      alt: "Siner Tower between a black and a white Minimal Line",
+      spots: [
+        { id: "minimal", name: "Minimal Line", kind: "Compact scent machine · Black", box: [21, 56, 15.5, 33] },
+        { id: "tower", name: "Siner Tower", kind: "Floor-standing nebuliser · 2000 m³", box: [46.5, 9, 7, 72], side: true },
+        { id: "minimal", name: "Minimal Line", kind: "Compact scent machine · White", box: [63.5, 56, 15.8, 34] },
+      ],
+    },
     facts: [
       { value: "No heat", label: "Cold-air diffusion" },
       { value: "2000 m³", label: "With a single device" },
