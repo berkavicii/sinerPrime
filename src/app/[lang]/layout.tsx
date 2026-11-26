@@ -5,6 +5,7 @@ import { display, sans } from "@/lib/fonts";
 import { isLocale, localeParams } from "@/lib/i18n";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { ContactDialog } from "@/components/site/contact-dialog";
 import { Sidebar } from "@/components/site/sidebar";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { Intro } from "@/components/site/intro";
@@ -45,6 +46,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
         <main>{children}</main>
         <Footer lang={lang} />
         <ToTop lang={lang} />
+        <ContactDialog lang={lang} />
       </body>
     </html>
   );

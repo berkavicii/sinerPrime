@@ -62,3 +62,8 @@ tarayıcı diline göre `/tr/` veya `/en/` adresine gider.
 4. SSL kurulduktan sonra `.htaccess` içindeki HTTPS yönlendirmesinin yorumunu kaldırın.
 5. Alan adı belli olunca `src/app/[lang]/layout.tsx` ve `src/app/(root)/layout.tsx` içindeki
    `metadataBase` değerini (`https://sinerprime.com`) gerçek adresle değiştirin.
+6. **İletişim formu (SMTP):** form, sitenin yanındaki `api/contact.php` dosyasına gönderir; bu dosya
+   e-postayı SMTP ile şirket adresine yollar (PHP 8+, ek kütüphane gerekmez).
+   `api/contact-config.example.php` dosyasını `contact-config.php` adıyla kopyalayıp SMTP bilgilerini
+   girin. En güvenlisi bu dosyayı `httpdocs`'un **bir üst klasörüne** koymaktır; `api/` içinde de çalışır.
+   `contact-config.php` git'e girmez. `npm run dev` ortamında PHP olmadığı için gönderim yalnızca taklit edilir.

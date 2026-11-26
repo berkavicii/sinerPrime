@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
+  useInView,
   useScroll,
   useTransform,
   type MotionValue,
@@ -103,8 +104,18 @@ export function PhilosophyScene({
   const c = deck[lang].felsefemiz;
   return (
     <section id={meta.slug} className="scroll-mt-0 border-t border-line">
-      <div className="gutter mx-auto grid max-w-[1600px] gap-12 py-24 sm:py-32 lg:grid-cols-12 lg:items-center lg:py-40">
-        <div className="lg:col-span-7">
+      {/* a full-screen opening: the photo fills the frame, the statement sits large over its dark side */}
+      <div className="relative isolate flex min-h-dvh items-end overflow-hidden lg:items-center">
+        <ParallaxImage
+          src={c.image}
+          alt=""
+          className="absolute inset-0 -z-10 lg:left-auto lg:w-[64%]"
+          imgClassName="object-[60%_35%]"
+          strength={70}
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-night via-night/80 to-night/25 lg:bg-gradient-to-r lg:from-night lg:from-[36%] lg:via-night/70 lg:via-[55%] lg:to-night/5" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-1/3 bg-gradient-to-t from-night to-transparent" />
+        <div className="gutter relative mx-auto w-full max-w-[1600px] pt-40 pb-20 sm:pb-28 lg:py-40">
           <FadeIn>
             <p className="eyebrow !text-gold">
               {meta.num} · {meta.menu}
@@ -112,23 +123,15 @@ export function PhilosophyScene({
           </FadeIn>
           <ScrollLitText
             text={c.statement}
-            className="display mt-8 text-[clamp(2.6rem,6vw,6.2rem)] leading-[1.02] text-ink"
+            className="display mt-8 max-w-[13ch] text-[clamp(3rem,7.4vw,8rem)] leading-[0.98] text-ink"
           />
           <FadeIn delay={0.1}>
-            <p className="mt-10 max-w-[46ch] text-[16px] leading-[1.75] text-ink-soft">
+            <p className="mt-10 max-w-[44ch] text-[16px] leading-[1.75] text-ink-soft">
               {c.lead}
             </p>
           </FadeIn>
           <MoreLink lang={lang} slug={meta.slug} className="mt-10" />
         </div>
-        <FadeIn y={40} className="lg:col-span-4 lg:col-start-9">
-          <ParallaxImage
-            src={c.image}
-            alt=""
-            className="aspect-[4/5] rounded-sm"
-            strength={40}
-          />
-        </FadeIn>
       </div>
       <div className="gutter mx-auto max-w-[1600px] pb-24 sm:pb-32">
         {/* phones: one fact per row, number beside its label; wider screens: three columns */}
@@ -572,6 +575,76 @@ export function CollectionScene({
 
 /* ---------- 06 Proje geliştirme: three kinds of project, then who we work with ---------- */
 
+type ProjectTile = (typeof deck)["tr"]["proje"]["tiles"][number];
+
+function ProjectRow({
+  i,
+  tile,
+  to,
+  active,
+  setActive,
+}: {
+  i: number;
+  tile: ProjectTile;
+  to: string;
+  active: boolean;
+  setActive: (i: number) => void;
+}) {
+  const ref = useRef<HTMLLIElement>(null);
+  // the line crossing the middle of the screen becomes the active one, so it works without a mouse
+  const centred = useInView(ref, { margin: "-45% 0px -45% 0px" });
+  useEffect(() => {
+    if (centred) setActive(i);
+  }, [centred, i, setActive]);
+  return (
+    <li ref={ref} className="border-t border-line last:border-b">
+      <Link
+        href={to}
+        onMouseEnter={() => setActive(i)}
+        onFocus={() => setActive(i)}
+        className="block py-8 sm:py-11"
+      >
+        <div className="flex items-baseline gap-5 sm:gap-8">
+          <span
+            className={cn(
+              "w-6 shrink-0 text-[11px] tracking-[0.3em] transition-colors duration-500",
+              active ? "text-gold" : "text-muted",
+            )}
+          >
+            0{i + 1}
+          </span>
+          <div className="min-w-0 flex-1">
+            <h3
+              className={cn(
+                "display text-[clamp(2rem,4.2vw,4.2rem)] leading-[1.02] transition-colors duration-700",
+                active ? "text-ink" : "text-ink lg:text-ink/25",
+              )}
+            >
+              {tile.title}
+            </h3>
+            <span
+              aria-hidden
+              className={cn(
+                "mt-5 block h-px origin-left bg-gold/70 transition-transform duration-[1s] ease-[var(--ease-silk)]",
+                active ? "scale-x-100" : "scale-x-0",
+              )}
+            />
+            <div className={cn("transition-opacity duration-700", active ? "opacity-100" : "lg:opacity-30")}>
+              <p className="mt-5 max-w-[42ch] text-[15px] leading-[1.7] text-ink-soft">{tile.body}</p>
+              <p className="mt-3 text-[11px] tracking-[0.26em] text-gold-hi uppercase">{tile.tags}</p>
+            </div>
+            {/* phones and tablets: the picture sits in the line, under an arch */}
+            <div className="mt-7 overflow-hidden rounded-t-[999px] ring-1 ring-gold/25 ring-offset-[6px] ring-offset-night lg:hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={tile.image} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
 export function ProjectScene({
   lang,
   meta,
@@ -580,37 +653,56 @@ export function ProjectScene({
   meta: SceneMeta;
 }) {
   const c = deck[lang].proje;
+  const [active, setActive] = useState(0);
+  const to = href(lang, meta.slug);
   return (
     <section id={meta.slug} className="scroll-mt-0 border-t border-line">
       <div className="gutter mx-auto max-w-[1600px] pt-24 sm:pt-32 lg:pt-40">
         <Head meta={meta} title={c.title} lang={lang} />
-        <div className="mt-14 grid gap-4 sm:mt-20 sm:grid-cols-3">
-          {c.tiles.map((t, i) => (
-            <FadeIn key={t.title} delay={i * 0.1} y={50}>
-              <figure className="group relative aspect-[4/3] overflow-hidden bg-night-2 sm:aspect-[3/4]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={t.image}
-                  alt=""
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent" />
-                <figcaption className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                  <span className="text-[11px] tracking-[0.3em] text-gold">
-                    0{i + 1}
-                  </span>
-                  <p className="display mt-3 text-[clamp(1.7rem,2.6vw,2.6rem)] leading-[1.05] text-ink">
-                    {t.title}
-                  </p>
-                  <p className="mt-2 max-w-[30ch] text-[14px] leading-[1.6] text-ink-soft">
-                    {t.body}
-                  </p>
-                </figcaption>
-              </figure>
-            </FadeIn>
-          ))}
+        {/*
+          An index of the three kinds of project. On wide screens an arched niche, like the ones in
+          Siner's own product shots, shows the picture of the line that is hovered or in the middle
+          of the screen; on phones each line carries its own picture.
+        */}
+        <div className="mt-14 grid gap-12 sm:mt-20 lg:grid-cols-12 lg:gap-16">
+          <ol className="lg:col-span-7 lg:py-[8vh]">
+            {c.tiles.map((t, i) => (
+              <ProjectRow key={t.title} i={i} tile={t} to={to} active={active === i} setActive={setActive} />
+            ))}
+          </ol>
+          <div className="hidden lg:col-span-5 lg:block">
+            <div className="sticky top-[16vh]">
+              <div className="relative mx-auto aspect-[4/5] w-full max-w-[440px] overflow-hidden rounded-t-[999px] bg-night-2 ring-1 ring-gold/30 ring-offset-[12px] ring-offset-night">
+                {c.tiles.map((t, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={t.image}
+                    src={t.image}
+                    alt=""
+                    loading="lazy"
+                    className={cn(
+                      "absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[1.2s] ease-[var(--ease-silk)]",
+                      active === i ? "scale-100 opacity-100" : "scale-[1.06] opacity-0",
+                    )}
+                  />
+                ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-night/50 via-transparent to-transparent" />
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* how every project travels, from the first idea to the finished space */}
+        <FadeIn className="mt-16 sm:mt-24">
+          <ol className="flex flex-wrap items-center gap-x-4 gap-y-3 text-[11px] tracking-[0.28em] text-muted uppercase sm:gap-x-6 sm:text-[12px]">
+            {c.steps.map((s, i) => (
+              <li key={s} className="flex items-center gap-4 sm:gap-6">
+                <span className={i === c.steps.length - 1 ? "text-gold-hi" : undefined}>{s}</span>
+                {i < c.steps.length - 1 && <span aria-hidden className="block h-px w-6 bg-gold/50 sm:w-14" />}
+              </li>
+            ))}
+          </ol>
+        </FadeIn>
         <div className="mt-20 flex items-end justify-between gap-6 border-t border-line pt-8 sm:mt-28">
           <p className="eyebrow">{c.refs}</p>
           <Link
@@ -661,24 +753,19 @@ export function SectorScene({
           </span>
         </div>
       </div>
-      {/* the sector names sit still, wrapped like a typeset list; nothing slides sideways */}
-      <ul className="gutter mx-auto mt-12 flex max-w-[1600px] flex-col items-center gap-1.5 text-center sm:mt-24 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-3">
-        {sectors.map((s, i) => (
-          <li key={s}>
-            <FadeIn y={12} delay={Math.min(i * 0.02, 0.4)} className="flex items-center gap-5 sm:gap-8">
-            <span
-              className={cn(
-                "display text-[clamp(1.25rem,2.6vw,2.6rem)] leading-[1.25]",
-                i % 3 === 1 ? "text-gold-foil italic" : "text-ink/85",
-              )}
-            >
+      {/* a quiet, plain list: small type in even columns, a hairline between rows */}
+      <FadeIn className="gutter mx-auto mt-14 max-w-[1600px] sm:mt-20">
+        <ul className="grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+          {sectors.map((s, i) => (
+            <li key={s} className="flex items-baseline gap-4 border-t border-line py-2.5 text-[14px] text-ink-soft sm:py-3.5 sm:text-[15px]">
+              <span className="w-6 shrink-0 text-[10.5px] tracking-[0.15em] text-gold/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
               {s}
-            </span>
-            {i < sectors.length - 1 && <span aria-hidden className="hidden size-1.5 rounded-full bg-gold/60 sm:inline-block" />}
-            </FadeIn>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </FadeIn>
     </section>
   );
 }

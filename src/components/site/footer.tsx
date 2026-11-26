@@ -1,24 +1,25 @@
 import Link from "next/link";
 import { common } from "@/content/common";
-import { contact, mailLink, whatsappLink } from "@/lib/contact";
+import { contact, whatsappLink } from "@/lib/contact";
 import { href, type Locale } from "@/lib/i18n";
 import { ButtonLink } from "@/components/ui/button";
 
-/** A compact closing band: one invitation with the two contact buttons, then the addresses and links in small type. */
+/** A compact closing band: one invitation with a button for the contact pop-up and WhatsApp, then the addresses and links in small type. */
 export function Footer({ lang }: { lang: Locale }) {
   const c = common[lang];
   const link = "text-ink-soft transition-colors hover:text-gold-hi";
   return (
-    <footer className="weave relative border-t border-line bg-night-2" id="iletisim">
+    <footer className="weave relative border-t border-line bg-night-2">
       <div className="gutter mx-auto grid max-w-[1400px] gap-12 py-14 sm:py-20 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
           <p className="eyebrow mb-5">{c.footer.contact}</p>
           <h2 className="display text-[clamp(2rem,3.2vw,3rem)] leading-[1.05] text-ink">{c.footer.lead}</h2>
           <p className="mt-5 max-w-md text-[14px] leading-[1.7] text-ink-soft">{c.footer.body}</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <ButtonLink href={whatsappLink(c.whatsappMessage)}>{c.whatsapp}</ButtonLink>
-            <ButtonLink href={mailLink(c.mailSubject)} variant="ghost">
-              {c.mail}
+            {/* #iletisim opens the contact pop-up (ContactDialog) */}
+            <ButtonLink href="#iletisim">{c.quote}</ButtonLink>
+            <ButtonLink href={whatsappLink(c.whatsappMessage)} variant="ghost">
+              {c.whatsapp}
             </ButtonLink>
           </div>
         </div>

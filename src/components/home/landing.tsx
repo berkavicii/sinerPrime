@@ -67,6 +67,14 @@ export function Intro({ lang }: { lang: Locale }) {
       <div className="absolute inset-0">
         <ScentField active={inView} fade={fade} />
       </div>
+      {/* a faint, ghostly wordmark in the smoke, behind the deer */}
+      <p
+        aria-hidden
+        lang="en"
+        className="display pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-[clamp(3.2rem,13vw,13rem)] leading-none tracking-[0.04em] whitespace-nowrap text-ink/[0.05] italic blur-[2px] select-none"
+      >
+        The Art of Scent
+      </p>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/deer.png"

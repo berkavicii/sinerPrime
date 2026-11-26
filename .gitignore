@@ -46,3 +46,6 @@ tsconfig.tsbuildinfo
 
 # kişisel notlar
 NOTLAR.md
+
+# SMTP bilgileri (Plesk sunucusunda elle oluşturulur)
+contact-config.php
