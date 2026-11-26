@@ -46,12 +46,8 @@ function Rig({ model, progress, labelEls }: { model: StoryModel; progress: Motio
     explode.current = damp(explode.current, ex, 5, dt);
     smoke.current = damp(smoke.current, (1 - ex) * (1 - 0.5 * intro * (1 - outro)), 3, dt);
 
-    const heroX = narrow ? 0 : f.heroX;
-    const outroX = narrow ? 0 : f.heroX - 1;
-    // on phones ONIX's bottle sits far right when exploded, so centre the whole set instead of the body
-    const exX = narrow ? f.exXNarrow : 0;
-    const x = THREE.MathUtils.lerp(THREE.MathUtils.lerp(THREE.MathUtils.lerp(heroX, 0, intro), exX, ex), outroX, outro);
-    g.position.x = damp(g.position.x, x, 4, dt);
+    // the product keeps one place across the screen while scrolling: no sideways travel
+    g.position.x = narrow ? f.exXNarrow / 2 : f.heroX;
 
     const sway = Math.sin(t * 0.35) * 0.35;
     const rot = -0.45 + sway * (1 - intro) * (1 - ex) + outro * Math.PI * 2 + pointer.x * 0.12;

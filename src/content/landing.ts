@@ -43,9 +43,9 @@ const tr = {
     title: "Üreticiyiz. Fikirden fabrikaya, fabrikadan mekânınıza.",
     lead: "Koku tasarımcılarımız, cam, seramik ve ahşap sanatçılarımız, heykeltıraşlarımız ve teknik ekibimizle bir markanın kokusunu ilk fikirden mekândaki son cihaza kadar kendi tesisimizde üretiyoruz.",
     media: [
-      { label: "Fabrika", image: null },
-      { label: "Üretim", image: null },
-      { label: "Atölye", image: null },
+      { label: "Fabrika", image: "/atolye/depo.webp" },
+      { label: "Üretim", image: "/atolye/uretim.webp" },
+      { label: "Atölye", image: "/atolye/seramik-boyama.webp" },
     ] as Media[],
     numbers: [
       { value: 15, suffix: "", label: "Yıllık tecrübe" },
@@ -133,9 +133,9 @@ const en: typeof tr = {
     title: "We are makers. From idea to factory, from factory to your space.",
     lead: "With perfumers, glass, ceramic and wood artists, sculptors and a technical team, we produce a brand's scent in our own facility, from the first idea to the last device in the space.",
     media: [
-      { label: "Factory", image: null },
-      { label: "Production", image: null },
-      { label: "Studio", image: null },
+      { label: "Factory", image: "/atolye/depo.webp" },
+      { label: "Production", image: "/atolye/uretim.webp" },
+      { label: "Studio", image: "/atolye/seramik-boyama.webp" },
     ],
     numbers: [
       { value: 15, suffix: "", label: "Years of experience" },

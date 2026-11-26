@@ -75,10 +75,17 @@ export function ChapterPage({ lang, slug }: { lang: Locale; slug: string }) {
           )}
 
           <div className="mt-14 grid gap-10 border-t border-line pt-10 lg:grid-cols-12">
+            {shots.aside && (
+              <div className="hidden lg:col-span-3 lg:block">
+                <div className="sticky top-28">
+                  <SectionShot shot={shots.aside} />
+                </div>
+              </div>
+            )}
             <div className="lg:col-span-8 lg:col-start-5">
               <FadeIn delay={0.3}>
                 {lead && lead.type === "p" && (
-                  <p className="display max-w-[36ch] text-[clamp(1.5rem,2.2vw,2.1rem)] leading-[1.25] text-ink">
+                  <p className="display max-w-[36ch] text-[clamp(1.5rem,2.2vw,2.1rem)] leading-[1.32] text-ink">
                     {lead.text}
                   </p>
                 )}

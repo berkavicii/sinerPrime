@@ -279,7 +279,6 @@ export function KubbeFeature({ lang }: { lang: Locale }) {
   const c = landing[lang].kubbe;
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const nameX = useTransform(scrollYProgress, [0, 1], ["6%", "-6%"]);
   const productY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
@@ -288,7 +287,6 @@ export function KubbeFeature({ lang }: { lang: Locale }) {
         {/* the name sits behind the product */}
         <motion.p
           aria-hidden
-          style={{ x: nameX }}
           className="display pointer-events-none absolute inset-x-0 top-[15%] text-center text-[clamp(6.5rem,34vw,30rem)] leading-none tracking-[-0.05em] whitespace-nowrap text-[#d9d3c9] select-none sm:top-1/2 sm:-translate-y-1/2 sm:text-[clamp(7rem,30vw,30rem)]"
         >
           {c.name}

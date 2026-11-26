@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   motion,
   useScroll,
@@ -131,17 +131,18 @@ export function PhilosophyScene({
         </FadeIn>
       </div>
       <div className="gutter mx-auto max-w-[1600px] pb-24 sm:pb-32">
-        <div className="grid grid-cols-3 gap-px border-y border-line bg-line">
+        {/* phones: one fact per row, number beside its label; wider screens: three columns */}
+        <div className="grid gap-px border-y border-line bg-line sm:grid-cols-3">
           {c.facts.map((f) => (
             <div
               key={f.label}
-              className="bg-night py-8 pr-3 sm:py-12 sm:pr-6 [&:not(:first-child)]:pl-4 sm:[&:not(:first-child)]:pl-8"
+              className="flex items-center gap-6 bg-night py-6 sm:block sm:py-12 sm:pr-6 sm:[&:not(:first-child)]:pl-8"
             >
-              <p className="display text-[clamp(2.6rem,6vw,6rem)] leading-none text-ink">
+              <p className="display w-[4.5rem] shrink-0 text-[clamp(2.6rem,6vw,6rem)] leading-none text-ink sm:w-auto">
                 <Counter value={f.value} />
                 <span className="text-gold-foil">{f.suffix}</span>
               </p>
-              <p className="mt-4 max-w-[22ch] text-[11px] leading-[1.5] tracking-[0.18em] text-muted uppercase sm:text-[12px]">
+              <p className="max-w-[22ch] text-[11px] leading-[1.5] tracking-[0.18em] text-muted uppercase sm:mt-4 sm:text-[12px]">
                 {f.label}
               </p>
             </div>
@@ -314,71 +315,70 @@ function SceneCopy({
   );
 }
 
-/* ---------- 03 Koku tasarımı: five verbs slide past, then the client's favourite picture ---------- */
+/* ---------- 03 Koku tasarımı: five verbs down the page, a gold line filling beside them, then the client's favourite picture ---------- */
 
 export function DesignScene({ lang, meta }: { lang: Locale; meta: SceneMeta }) {
   const c = deck[lang].tasarim;
-  const ref = useRef<HTMLElement>(null);
-  const track = useRef<HTMLOListElement>(null);
-  const [travel, setTravel] = useState(0);
+  const list = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
+    target: list,
+    offset: ["start 0.7", "end 0.6"],
   });
-  const x = useTransform(scrollYProgress, [0.08, 0.92], [0, -travel]);
-
-  useEffect(() => {
-    const el = track.current;
-    if (!el) return;
-    const measure = () =>
-      setTravel(Math.max(0, el.scrollWidth - el.clientWidth));
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  const fill = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <>
-      <section
-        id={meta.slug}
-        ref={ref}
-        className="relative h-[280vh] scroll-mt-0 border-t border-line"
-      >
-        <div className="sticky top-0 flex h-dvh flex-col justify-center gap-12 overflow-hidden sm:gap-16">
-          <Head
-            meta={meta}
-            title={c.title}
-            lang={lang}
-            className="gutter mx-auto w-full max-w-[1600px]"
-            titleClassName="!text-[clamp(2.2rem,4.4vw,4.4rem)] max-w-[24ch]"
-          />
-          <div className="gutter mx-auto w-full max-w-[1600px]">
-            <motion.ol
-              ref={track}
-              style={{ x }}
-              className="flex gap-4 sm:gap-6"
+      <section id={meta.slug} className="scroll-mt-0 border-t border-line">
+        <div className="gutter mx-auto grid max-w-[1600px] gap-14 py-24 sm:py-32 lg:grid-cols-12 lg:py-40">
+          <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+            <FadeIn>
+              <p className="eyebrow !text-gold">
+                {meta.num} · {meta.menu}
+              </p>
+            </FadeIn>
+            <RiseText
+              as="h2"
+              text={c.title}
+              className="display mt-5 max-w-[16ch] text-[clamp(2.3rem,4.2vw,4.2rem)] leading-[1.02] text-ink"
+            />
+            <MoreLink lang={lang} slug={meta.slug} className="mt-10" />
+          </div>
+          <ol ref={list} className="relative lg:col-span-7">
+            {/* the process line fills as the steps scroll by */}
+            <span
+              aria-hidden
+              className="absolute top-0 bottom-0 left-0 w-px bg-line"
             >
-              {c.steps.map((s) => (
-                <li
-                  key={s.k}
-                  className="flex h-[min(44vh,400px)] w-[72vw] shrink-0 flex-col justify-between border border-line bg-night-2 p-6 sm:w-[40vw] sm:p-8 lg:w-[26vw]"
+              <motion.span
+                style={{ height: fill }}
+                className="block w-px bg-gold"
+              />
+            </span>
+            {c.steps.map((s, i) => (
+              <li key={s.k} className="pl-8 sm:pl-14">
+                <FadeIn
+                  delay={0.05}
+                  y={30}
+                  className={cn(
+                    "grid grid-cols-[4.5rem_1fr] items-baseline gap-x-4 py-9 sm:grid-cols-[7rem_1fr] sm:py-12",
+                    i > 0 && "border-t border-line",
+                  )}
                 >
-                  <span className="display text-gold-foil text-[clamp(3rem,6vw,5.5rem)] leading-none">
+                  <span className="display text-gold-foil text-[clamp(2.6rem,5vw,4.6rem)] leading-none">
                     {s.k}
                   </span>
                   <div>
-                    <h3 className="display text-[clamp(1.9rem,3vw,3rem)] leading-none text-ink">
+                    <h3 className="display text-[clamp(2rem,3.4vw,3.4rem)] leading-none text-ink">
                       {s.title}
                     </h3>
-                    <p className="mt-4 max-w-[26ch] text-[14px] leading-[1.65] text-ink-soft sm:text-[15px]">
+                    <p className="mt-4 max-w-[38ch] text-[15px] leading-[1.7] text-ink-soft sm:text-[16px]">
                       {s.body}
                     </p>
                   </div>
-                </li>
-              ))}
-            </motion.ol>
-          </div>
+                </FadeIn>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
       <figure className="relative h-[80svh] min-h-[420px] overflow-hidden">
@@ -481,7 +481,6 @@ export function CollectionScene({
     target: stage,
     offset: ["start end", "end start"],
   });
-  const nameX = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
   const productY = useTransform(scrollYProgress, [0, 1], [50, -50]);
   return (
     <section id={meta.slug} className="scroll-mt-0 border-t border-line">
@@ -499,7 +498,6 @@ export function CollectionScene({
         >
           <motion.p
             aria-hidden
-            style={{ x: nameX }}
             className="display pointer-events-none absolute inset-x-0 top-[12%] text-center text-[clamp(6.5rem,34vw,30rem)] leading-none tracking-[-0.05em] whitespace-nowrap text-[#ddd7cc] select-none sm:top-1/2 sm:-translate-y-1/2"
           >
             {c.kubbe.name}
@@ -628,12 +626,6 @@ export function SectorScene({
   sectors: string[];
 }) {
   const c = deck[lang].sektor;
-  const third = Math.ceil(sectors.length / 3);
-  const rows = [
-    sectors.slice(0, third),
-    sectors.slice(third, third * 2),
-    sectors.slice(third * 2),
-  ];
   return (
     <section
       id={meta.slug}
@@ -655,38 +647,24 @@ export function SectorScene({
           </span>
         </div>
       </div>
-      <div className="mt-16 flex flex-col gap-3 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)] sm:mt-24 sm:gap-5">
-        {rows.map((row, i) => (
-          <div key={i} className="overflow-hidden">
-            <motion.div
-              className="flex w-max"
-              animate={{ x: i % 2 ? ["-50%", "0%"] : ["0%", "-50%"] }}
-              transition={{
-                duration: 70 + i * 12,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+      {/* the sector names sit still, wrapped like a typeset list; nothing slides sideways */}
+      <ul className="gutter mx-auto mt-12 flex max-w-[1600px] flex-col items-center gap-1.5 text-center sm:mt-24 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-8 sm:gap-y-3">
+        {sectors.map((s, i) => (
+          <li key={s}>
+            <FadeIn y={12} delay={Math.min(i * 0.02, 0.4)} className="flex items-center gap-5 sm:gap-8">
+            <span
+              className={cn(
+                "display text-[clamp(1.25rem,2.6vw,2.6rem)] leading-[1.25]",
+                i % 3 === 1 ? "text-gold-foil italic" : "text-ink/85",
+              )}
             >
-              {[0, 1].map((k) => (
-                <span key={k} aria-hidden={k === 1} className="flex shrink-0">
-                  {row.map((s) => (
-                    <span
-                      key={s}
-                      className={cn(
-                        "display flex items-center text-[clamp(1.8rem,4.2vw,4.2rem)] leading-[1.2] whitespace-nowrap",
-                        i === 1 ? "text-gold-foil italic" : "text-ink/85",
-                      )}
-                    >
-                      {s}
-                      <span className="mx-6 inline-block size-1.5 rounded-full bg-gold/60 sm:mx-10" />
-                    </span>
-                  ))}
-                </span>
-              ))}
-            </motion.div>
-          </div>
+              {s}
+            </span>
+            {i < sectors.length - 1 && <span aria-hidden className="hidden size-1.5 rounded-full bg-gold/60 sm:inline-block" />}
+            </FadeIn>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

@@ -97,26 +97,17 @@ export function References({ lang, header = true, eyebrow }: { lang: Locale; hea
           </ButtonLink>
         </div>
       </div>
-      <div className="flex flex-col gap-6 [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        {rows.map((n, i) => (
-          <div key={n} className="overflow-hidden">
-            <motion.div
-              className="flex w-max gap-24"
-              animate={{ x: i % 2 ? ["-50%", "0%"] : ["0%", "-50%"] }}
-              transition={{ duration: 46 + i * 5, repeat: Infinity, ease: "linear" }}
-            >
-              {[0, 1, 2, 3].map((k) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={k}
-                  src={`/refs/row-${n}.png`}
-                  alt=""
-                  loading="lazy"
-                  className="h-12 w-auto max-w-none opacity-60 transition-opacity duration-500 hover:opacity-100 sm:h-16"
-                />
-              ))}
-            </motion.div>
-          </div>
+      {/* each logo strip shown once, still and fitted to the page width */}
+      <div className="gutter mx-auto flex max-w-[1200px] flex-col gap-5 sm:gap-7">
+        {rows.map((n) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={n}
+            src={`/refs/row-${n}.png`}
+            alt=""
+            loading="lazy"
+            className="h-auto w-full opacity-60 transition-opacity duration-500 hover:opacity-100"
+          />
         ))}
       </div>
     </section>

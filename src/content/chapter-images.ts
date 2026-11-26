@@ -25,27 +25,33 @@ export type ChapterShots = {
   sections?: Record<string, Shot>;
   /** full-width picture after a section (keyed by section id) */
   bands?: Record<string, Shot>;
+  /** beside the opening text on wide screens, in the otherwise empty left column; stays in view while reading */
+  aside?: Shot;
   /** pictures inside the opening text, after the given number of paragraphs */
   inline?: { after: number; shot: Shot }[];
 };
 
 const P = "/prime";
+/** photos from Siner's own workshop, studio and shoots */
+const A = "/atolye";
 
 export const chapterImages: Record<string, ChapterShots> = {
   felsefemiz: {
     hero: { src: `${P}/smoke-gold.webp`, alt: "", position: "70% 50%" },
+    aside: { src: `${A}/zanaatkar.webp`, alt: "Atölyede bir parçayı elle işleyen ustamız" },
     inline: [
       { after: 4, shot: { src: `${P}/ceramic-studio.webp`, alt: "Seramik formlar üzerinde çalışan bir tasarımcı" } },
-      { after: 9, shot: { alt: "Siner Prime ekibi", hint: "Atölyeden ya da ekipten doğal bir an" } },
+      { after: 9, shot: { src: `${A}/seramik-sanatci.webp`, alt: "Delikli bir seramiği elle boyayan sanatçımız" } },
     ],
   },
 
   koku: {
     hero: { src: `${P}/smoke-gold-2.webp`, alt: "", position: "65% 50%" },
+    aside: { src: `${A}/kubbe-duman.webp`, alt: "Karanlıkta tüten siyah Kubbe buhurdanlık" },
     sections: {
       "kokunun-hikayesi-insanliktan-daha-eski": {
-        alt: "Tarihten bir koku ritüeli",
-        hint: "Antik bir tütsü kabı ya da tarihî bir koku ritüeli",
+        src: `${A}/geleneksel-buhurdan.webp`,
+        alt: "Taş üzerinde mumla yanan geleneksel seramik buhurdanlık",
       },
       "bir-koku-nasil-olur-da-bir-aniyi-yeniden-canland": {
         src: `${P}/oil-drop.webp`,
@@ -62,6 +68,8 @@ export const chapterImages: Record<string, ChapterShots> = {
         src: `${P}/burner-sand.webp`,
         alt: "Kum üzerinde beyaz seramik buhurdanlık",
       },
+      "siner-prime-kokuya-bakisimiz": { src: `${A}/cubuklu-difuzor.webp`, alt: "Kurutulmuş çiçekler arasında Siner çubuklu difüzör" },
+      "her-mekanin-bir-hikayesi-her-hikayenin-bir-kokus": { src: `${A}/pencere-sise.webp`, alt: "Pencereden süzülen ışıkta desenli koku şişesi" },
     },
     bands: {
       "her-kokunun-bir-dili-var": { src: `${P}/marble-reed.webp`, alt: "Mermer banyoda oda kokusu" },
@@ -70,24 +78,17 @@ export const chapterImages: Record<string, ChapterShots> = {
 
   "koku-tasarimi": {
     hero: { src: `${P}/reed-stone.webp`, alt: "", position: "50% 70%" },
+    aside: { src: `${A}/esans-buhurdan.webp`, alt: "Siner esansı ve yanan seramik buhurdanlık" },
     sections: {
-      "once-dinleriz-gozlemleriz-anlamaya-calisiriz": {
-        alt: "Keşif görüşmesi",
-        hint: "Mekânda gözlem ya da müşteriyle keşif görüşmesi",
-      },
-      "bir-kokudan-once-bir-fikir-gelistiririz": {
-        alt: "Konsept panosu",
-        hint: "Konsept panosu: renkler, malzemeler, ilham görselleri",
-      },
+      "once-dinleriz-gozlemleriz-anlamaya-calisiriz": { src: `${A}/studyo.webp`, alt: "Siner koku stüdyosunda çalışma masası" },
+      "bir-kokudan-once-bir-fikir-gelistiririz": { src: `${A}/cizim.webp`, alt: "Bir koku markası için çizilen konsept illüstrasyonu" },
       "koku-tasarimi-nasil-gelisir": { src: `${P}/oil-drop.webp`, alt: "Esans damlatılan seramik buhurdanlık" },
       "bizim-icin-bir-koku-baska-tasarimlarin-da-baslan": {
         src: `${P}/burner-rocks.webp`,
         alt: "Taşların arasında siyah seramik buhurdanlık",
       },
-      "her-sektorun-degil-her-projenin-kendine-ozgu-bir": {
-        alt: "Projeye özel koku",
-        hint: "Farklı projeler için hazırlanmış koku şişeleri ve blotter kâğıtları",
-      },
+      "her-sektorun-degil-her-projenin-kendine-ozgu-bir": { src: `${A}/ozel-siseler.webp`, alt: "Projeye özel hazırlanmış desenli koku şişeleri" },
+      "siner-prime-in-kokuya-yaklasimi": { src: `${A}/kubbe-damlatma.webp`, alt: "Kubbe'nin haznesine esans damlatılırken" },
     },
     bands: {
       "koku-tasarimi-nasil-gelisir": { src: `${P}/marble-reed.webp`, alt: "Mermer banyoda oda kokusu" },
@@ -98,24 +99,15 @@ export const chapterImages: Record<string, ChapterShots> = {
     hero: { src: `${P}/devices-dark.webp`, alt: "", position: "70% 50%" },
     sections: {
       "teknoloji-felsefemiz": { src: `${P}/machine-dark.webp`, alt: "Siner Minimal Line koku makinesi" },
-      "koku-teknolojisi-nasil-calisir": {
-        alt: "Nebülizasyon",
-        hint: "Cihazın kesit çizimi ya da nebülizasyonu anlatan bir diyagram",
-      },
+      "koku-teknolojisi-nasil-calisir": { src: `${A}/laboratuvar.webp`, alt: "Siner laboratuvarında damıtma düzeneği" },
       "mekana-ozel-sistem-tasarimi": {
         src: `${P}/office-wall.webp`,
         alt: "Ofis duvarında Siner koku cihazı",
         position: "62% 50%",
       },
       "siner-prime-profesyonel-kokulandirma-sistemleri": { src: "/devices/tower.webp", alt: "Siner Tower" },
-      "hvac-ve-merkezi-sistem-entegrasyonu": {
-        alt: "HVAC entegrasyonu",
-        hint: "HVAC kanalına bağlı cihaz ya da teknik oda uygulaması",
-      },
-      "akilli-kontrol-ve-yonetim": {
-        alt: "Akıllı kontrol",
-        hint: "Mobil uygulama ya da kumanda ekranı",
-      },
+      "hvac-ve-merkezi-sistem-entegrasyonu": { src: `${A}/metal-atolye.webp`, alt: "Atölyede işlenen metal cihaz parçaları" },
+      "projelendirme-uygulama-ve-teknik-destek": { src: `${A}/cnc.webp`, alt: "CNC tezgâhında kazınan uygulama" },
     },
     bands: {
       "mekana-ozel-sistem-tasarimi": { src: `${P}/lobby-tower.webp`, alt: "Otel lobisinde Siner Tower" },
@@ -124,6 +116,7 @@ export const chapterImages: Record<string, ChapterShots> = {
 
   "tasarim-ve-koleksiyonlar": {
     hero: { src: `${P}/burners-dark.webp`, alt: "", position: "45% 50%" },
+    aside: { src: `${A}/seramik-fincan.webp`, alt: "Elde tutulan desenli seramik, arkada Kubbe koleksiyonu" },
     sections: {
       "tasarim-felsefemiz": { src: `${P}/burner-sand.webp`, alt: "Kum üzerinde beyaz seramik buhurdanlık" },
       "malzeme-ve-uretim-kulturu": {
@@ -137,6 +130,8 @@ export const chapterImages: Record<string, ChapterShots> = {
         src: `${P}/burner-rocks.webp`,
         alt: "Taşların arasında siyah seramik buhurdanlık",
       },
+      "bizim-icin-tasarim-biten-bir-urun-degil-baslayan": { src: `${A}/seramik-firca.webp`, alt: "Seramik bir formu fırçayla desenleyen sanatçımız" },
+      "markaniza-ozel-bir-koleksiyon-gelistirelim": { src: `${A}/forma-seramik.webp`, alt: "Bir spor kulübü için tasarlanan forma biçimli seramik" },
     },
     bands: {
       koleksiyonlarimiz: { src: `${P}/marble-reed.webp`, alt: "Mermer banyoda oda kokusu" },
@@ -145,6 +140,7 @@ export const chapterImages: Record<string, ChapterShots> = {
 
   "proje-gelistirme": {
     hero: { src: `${P}/office-wall.webp`, alt: "", position: "60% 50%" },
+    aside: { src: `${A}/ahsap-kutu.webp`, alt: "Bir marka için hazırlanan ahşap kutulu koku seti" },
     sections: {
       "kurumsal-mekan-ve-deneyim-projeleri": {
         src: `${P}/lobby-tower.webp`,
@@ -154,19 +150,15 @@ export const chapterImages: Record<string, ChapterShots> = {
         src: "/onix/thy-box-open.webp",
         alt: "Kurumsal hediye kutusunda ONIX",
       },
-      "etkinlik-atolye-ve-marka-deneyimleri": {
-        alt: "Atölye etkinliği",
-        hint: "Koku atölyesi ya da marka etkinliğinden bir kare",
-      },
+      "etkinlik-atolye-ve-marka-deneyimleri": { src: `${A}/esans-damlatma.webp`, alt: "Buhurdanlığa esans damlatılırken" },
       "sektore-gore-degisen-ihtiyaca-gore-sekillenen-pr": {
         src: `${P}/showroom.webp`,
         alt: "Otomobil showroomunda Siner koku cihazı",
         position: "45% 50%",
       },
-      "proje-gelistirme-ve-uygulama-surecimiz": {
-        alt: "Numune ve prototip",
-        hint: "Numune ve prototiplerin değerlendirildiği bir masa",
-      },
+      "proje-gelistirme-ve-uygulama-surecimiz": { src: `${A}/seramik-prototip.webp`, alt: "Üretimdeki seramik prototipler" },
+      "her-projenin-kapsami-farkli-olabilir": { src: `${A}/ambalaj.webp`, alt: "Markaya özel ambalaj ve kutular" },
+      "projenizi-birlikte-gelistirelim": { src: `${A}/deri-canta.webp`, alt: "Bir marka için üretilen deri taşıma çantası" },
     },
     bands: {
       "etkinlik-atolye-ve-marka-deneyimleri": { src: `${P}/hall-tower.webp`, alt: "Geniş bir holde Siner Tower" },
@@ -175,18 +167,17 @@ export const chapterImages: Record<string, ChapterShots> = {
 
   "sektorel-cozumler": {
     hero: { src: `${P}/showroom.webp`, alt: "", position: "40% 50%" },
+    aside: { src: `${A}/kubbe-logolu.webp`, alt: "Bir otomotiv markasının logosuyla Kubbe" },
     sections: {
       "tum-sektorler-icin-ortak-proje-yaklasimimiz": {
         src: `${P}/hall-tower.webp`,
         alt: "Geniş bir holde Siner Tower",
         position: "40% 50%",
       },
+      "birlikte-nasil-bir-proje-gelistirebiliriz": { src: `${A}/siner-kutu.webp`, alt: "Siner kutusu ve özel tasarım şişeler" },
     },
     bands: {
-      sektorlerimiz: {
-        alt: "Sektörlerden uygulamalar",
-        hint: "Farklı sektörlerden uygulama kareleri: otel, AVM, ofis, showroom",
-      },
+      sektorlerimiz: { src: `${A}/vitrin-siseler.webp`, alt: "Bir mekânın vitrininde Siner koku şişeleri", position: "50% 85%" },
     },
   },
 };

@@ -26,17 +26,17 @@ const tr = {
       {
         label: "Hafıza",
         text: "Göz unutur, kulak alışır. Bir koku ise yıllar sonra bile bir anıyı tek nefeste geri getirir.",
-        image: "/prime/oil-drop.webp",
+        image: "/prime/koku-hafiza.webp",
       },
       {
         label: "Mekân",
         text: "Bir yeri hatırlarken duvarlarını değil, orada ne hissettiğimizi hatırlarız.",
-        image: "/prime/lobby-tower.webp",
+        image: "/prime/koku-mekan.webp",
       },
       {
         label: "Marka",
         text: "Koku, markaların görünmeyen imzasıdır.",
-        image: "/prime/store-reed.webp",
+        image: "/prime/koku-marka.webp",
       },
     ],
   },
@@ -96,9 +96,9 @@ const tr = {
   proje: {
     title: "Bir fikirden daha fazlası.",
     tiles: [
-      { title: "Kurumsal mekân ve deneyim", body: "Otel, ofis, mağaza ve showroomlara koku kimliği.", image: "/prime/lobby-tower.webp" },
+      { title: "Kurumsal mekân ve deneyim", body: "Otel, ofis, mağaza ve showroomlara koku kimliği.", image: "/atolye/vitrin-siseler.webp" },
       { title: "Markaya özel ürün", body: "Koleksiyonlar, hediye setleri ve ambalaj.", image: "/onix/thy-box-open.webp" },
-      { title: "Etkinlik ve atölye", body: "Misafirleri deneyimin bir parçası yapan buluşmalar.", image: "/prime/hall-tower.webp" },
+      { title: "Etkinlik ve atölye", body: "Misafirleri deneyimin bir parçası yapan buluşmalar.", image: "/atolye/esans-tepsi.webp" },
     ],
     refs: "Birlikte çalıştığımız kurumlar",
     refsLink: "Tüm referanslar",
@@ -125,9 +125,9 @@ const en: typeof tr = {
   koku: {
     title: "The memory of an invisible world.",
     scenes: [
-      { label: "Memory", text: "The eye forgets, the ear grows used to things. A scent brings a memory back in one breath, years later.", image: "/prime/oil-drop.webp" },
-      { label: "Place", text: "We remember a place not by its walls, but by how it made us feel.", image: "/prime/lobby-tower.webp" },
-      { label: "Brand", text: "Scent is a brand's invisible signature.", image: "/prime/store-reed.webp" },
+      { label: "Memory", text: "The eye forgets, the ear grows used to things. A scent brings a memory back in one breath, years later.", image: "/prime/koku-hafiza.webp" },
+      { label: "Place", text: "We remember a place not by its walls, but by how it made us feel.", image: "/prime/koku-mekan.webp" },
+      { label: "Brand", text: "Scent is a brand's invisible signature.", image: "/prime/koku-marka.webp" },
     ],
   },
   tasarim: {
@@ -172,9 +172,9 @@ const en: typeof tr = {
   proje: {
     title: "More than an idea.",
     tiles: [
-      { title: "Corporate spaces", body: "A scent identity for hotels, offices, stores and showrooms.", image: "/prime/lobby-tower.webp" },
+      { title: "Corporate spaces", body: "A scent identity for hotels, offices, stores and showrooms.", image: "/atolye/vitrin-siseler.webp" },
       { title: "Brand products", body: "Collections, gift sets and packaging.", image: "/onix/thy-box-open.webp" },
-      { title: "Events and workshops", body: "Gatherings that make guests part of the experience.", image: "/prime/hall-tower.webp" },
+      { title: "Events and workshops", body: "Gatherings that make guests part of the experience.", image: "/atolye/esans-tepsi.webp" },
     ],
     refs: "Organisations we work with",
     refsLink: "All clients",
