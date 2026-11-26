@@ -142,7 +142,6 @@ const burnersTr = {
     lead: "Seramik buhurdanlık, 21 farklı buhurdanlık yağı ve masif gürgen ağacından bir stand, tek bir hediye kutusunda. Günün her anı için ayrı bir atmosfer seçebilmeniz için.",
     facts: ["21 buhurdanlık yağı", "Tealight ile kullanılan seramik buhurdanlık", "Masif gürgen ağacından stand", "Hediye kutusu"],
     main: { src: "/burners/set-office.webp", alt: "Ofis masasında gürgen stand, buhurdanlık ve hediye kutusu" },
-    detail: { src: "/burners/set-open.webp", alt: "Açık hediye kutusunda 21 buhurdanlık yağı" },
   },
   shop: {
     eyebrow: "Sinershop",
@@ -190,7 +189,6 @@ const burnersEn: typeof burnersTr = {
     lead: "A ceramic burner, 21 burner oils and a solid hornbeam stand, together in one gift box. A different atmosphere for every part of the day.",
     facts: ["21 burner oils", "Ceramic tealight burner", "Solid hornbeam stand", "Gift box"],
     main: { src: "/burners/set-office.webp", alt: "Hornbeam stand, burner and gift box on an office desk" },
-    detail: { src: "/burners/set-open.webp", alt: "21 burner oils in the open gift box" },
   },
   shop: {
     eyebrow: "Sinershop",

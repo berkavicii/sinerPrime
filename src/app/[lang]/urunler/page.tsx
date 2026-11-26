@@ -58,17 +58,11 @@ export default async function BurnersPage({ params }: PageProps<"/[lang]/urunler
       {/* discovery set */}
       <section id="set" className="scroll-mt-20 border-t border-line">
         <div className="gutter mx-auto grid max-w-[1600px] gap-12 py-20 sm:py-32 lg:grid-cols-12 lg:items-center lg:gap-16 lg:py-40">
-          <div className="relative lg:col-span-7">
+          <div className="lg:col-span-7">
             <FadeIn y={24}>
-              <figure className="aspect-[4/5] overflow-hidden bg-night-2 sm:w-[78%]">
+              <figure className="aspect-[4/5] overflow-hidden bg-night-2 sm:mx-auto sm:w-[78%]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={b.set.main.src} alt={b.set.main.alt} loading="lazy" className="h-full w-full object-cover" />
-              </figure>
-            </FadeIn>
-            <FadeIn y={40} delay={0.15} className="absolute right-0 bottom-[-2.5rem] w-[44%] sm:bottom-12">
-              <figure className="aspect-[4/5] overflow-hidden bg-night-2 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] ring-1 ring-white/5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={b.set.detail.src} alt={b.set.detail.alt} loading="lazy" className="h-full w-full object-cover" />
               </figure>
             </FadeIn>
           </div>
